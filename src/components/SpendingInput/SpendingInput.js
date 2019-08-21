@@ -2,13 +2,15 @@ import React from 'react';
 
 import styles from './SpendingInput.module.css';
 
-const spendingInput = () => (
+const spendingInput = (props) => (
   <div>
     <div className={styles.SpendingInput}>
-      <input type="number" name="spending"></input>
-      <label for="spending">€</label>
+      <input type="number" onChange={props.inputValue}></input>
+      <label>€</label>
     </div>
-    <button className={styles.Button}>Übernehmen</button>
+    <button 
+      className={styles.Button}
+      onClick={props.applySpending}>Übernehmen</button>
   </div>
 );
 
