@@ -1,14 +1,15 @@
 import React from 'react';
-import Aux from '../../hoc/Aux/Aux';
+
+import styles from './SpendingInput.module.css';
 
 const spendingInput = () => (
-  <Aux>
-    <div>
-      <input type="number"></input>
-      <p>€</p>
+  <div>
+    <div className={styles.SpendingInput}>
+      <input type="number" name="spending"></input>
+      <label for="spending">€</label>
     </div>
-    <button>Übernehmen</button>
-  </Aux>
+    <button className={styles.Button}>Übernehmen</button>
+  </div>
 );
 
 export default spendingInput;

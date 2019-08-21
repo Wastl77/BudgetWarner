@@ -2,4 +2,6 @@
   width:70%;
   margin: 10px;
   border: 2px solid grey;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px lightgray;
 }
