@@ -22,7 +22,7 @@ class MainContent extends Component {
     this.setState({
       loading: true
     });
-    
+
     axios.get('/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json')
       .then(result => {
         const totalExpenditure = +(result.data.totalExpenditure);
@@ -102,7 +102,6 @@ class MainContent extends Component {
   };
 
   render () {
-
     let mainContent = (
       <div>
         <BudgetOutputs
