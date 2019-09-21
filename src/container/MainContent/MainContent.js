@@ -4,7 +4,9 @@ import axios from 'axios';
 import Aux from '../../hoc/Aux/Aux';
 import BudgetOutputs from '../../components/BudgetOutputs/BudgetOutputs';
 import SpendingInput from '../../components/SpendingInput/SpendingInput';
-import Spinner from '../../components/UI/Spinner';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Modal from '../../components/UI/Modal/Modal';
+import SpendingDetailsForm from '../../components/SpendingDetailsForm/SpendingDetailsForm';
 
 import * as helper from '../../helper/helper';
 
@@ -15,7 +17,8 @@ class MainContent extends Component {
     totalAvailable: 0,
     dailyAvailable: 0,
     spendingInputValue: 0,
-    loading: false 
+    loading: false,
+    showModal: false 
   };
 
   componentDidMount() {
@@ -49,7 +52,20 @@ class MainContent extends Component {
 
   acceptSpendingHandler = () => {
     this.setState({
-      loading: true
+      showModal: true
+    })
+  };
+
+  cancelSpendingHandler = () => {
+    this.setState({
+      showModal: false
+    })
+  };
+
+  storeSpendingHandler = () => {
+    this.setState({
+      loading: true,
+      showModal:false
     })
 
     let expense = this.state.spendingInputValue;
@@ -121,6 +137,11 @@ class MainContent extends Component {
 
     return(
       <Aux>
+        <Modal show={this.state.showModal} modalClosed={this.cancelSpendingHandler}>
+          <SpendingDetailsForm
+            cancelSpending={this.cancelSpendingHandler}
+            continueSpending={this.storeSpendingHandler} />
+        </Modal>
         {mainContent}
       </Aux>
     )
