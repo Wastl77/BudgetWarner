@@ -18,7 +18,9 @@ class MainContent extends Component {
     dailyAvailable: 0,
     spendingInputValue: 0,
     loading: false,
-    showModal: false 
+    showModal: false,
+    selectedCategory: "keine",
+    selectedPaymentType: "bar"
   };
 
   componentDidMount() {
@@ -63,12 +65,15 @@ class MainContent extends Component {
   };
 
   storeSpendingHandler = () => {
+    // if value = 0 Check adden und Modal mit Fehlermeldung zeigen falls 0
     this.setState({
       loading: true,
       showModal:false
     })
 
     let expense = this.state.spendingInputValue;
+    let category = this.state.selectedCategory;
+    let paymentType = this.state.selectedPaymentType;
     let newTotalAvailable = helper.calculateTotalAvailable(this.state.totalAvailable, expense);
     let newTotalExpenditure = parseFloat(this.state.totalExpenditure)+parseFloat(expense);
     let newDailyAvailable = helper.calculateDailyAvailable(newTotalAvailable);
@@ -76,7 +81,9 @@ class MainContent extends Component {
     const storageExpenseData = {
       singleExpense: {
         date: new Date(),
-        expenseValue: expense
+        expenseValue: expense,
+        category: category,
+        paymentType: paymentType
       }
     };
     const storageTotalExpenditureData = {
@@ -107,13 +114,27 @@ class MainContent extends Component {
     this.setState({
       totalAvailable: newTotalAvailable.toFixed(2),
       totalExpenditure: newTotalExpenditure.toFixed(2),
-      dailyAvailable: newDailyAvailable.toFixed(2)
+      dailyAvailable: newDailyAvailable.toFixed(2),
+      spendingInputValue: 0,
+      selectedCategory: "keine"
     })
   };
 
   spendingInputValueHandler = (event) => {
     this.setState({
       spendingInputValue: event.target.value
+    })
+  };
+
+  handleCategoryChange = (event) => {
+    this.setState({
+      selectedCategory: event.target.value
+    })
+  };
+
+  handlePaymentTypeChange = (event) => {
+    this.setState({
+      selectedPaymentType: event.target.value
     })
   };
 
@@ -139,6 +160,10 @@ class MainContent extends Component {
       <Aux>
         <Modal show={this.state.showModal} modalClosed={this.cancelSpendingHandler}>
           <SpendingDetailsForm
+            selectedCategory={this.state.selectedCategory}
+            handleCategoryChange={this.handleCategoryChange}
+            selectedPaymentType={this.state.selectedPaymentType}
+            handlePaymentTypeChange={this.handlePaymentTypeChange}
             cancelSpending={this.cancelSpendingHandler}
             continueSpending={this.storeSpendingHandler} />
         </Modal>
