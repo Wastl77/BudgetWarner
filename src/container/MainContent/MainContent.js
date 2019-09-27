@@ -21,7 +21,7 @@ class MainContent extends Component {
     showModal: false,
     selectedCategory: "keine",
     selectedPaymentType: "bar",
-    selectedDate: null
+    selectedDate: ''
   };
 
   componentDidMount() {
@@ -33,16 +33,16 @@ class MainContent extends Component {
 
     axios.get('/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json')
       .then(result => {
-        const totalExpenditure = +(result.data.totalExpenditure);
+        const totalExpenditure = (+(result.data.totalExpenditure)).toFixed(2);
         const monthlyBudget = +(354).toFixed(2);
-        const totalAvailable = helper.calculateTotalAvailable(monthlyBudget, totalExpenditure);
-        const dailyAvailable = helper.calculateDailyAvailable(totalAvailable);
+        const totalAvailable = (helper.calculateTotalAvailable(monthlyBudget, totalExpenditure)).toFixed(2);
+        const dailyAvailable = (helper.calculateDailyAvailable(totalAvailable)).toFixed(2);
 
         this.setState({
           monthlyBudget: monthlyBudget,
-          totalExpenditure: totalExpenditure.toFixed(2),
-          totalAvailable: totalAvailable.toFixed(2),
-          dailyAvailable: dailyAvailable.toFixed(2),
+          totalExpenditure: totalExpenditure,
+          totalAvailable: totalAvailable,
+          dailyAvailable: dailyAvailable,
           spendingInputValue: 0,
           selectedDate: actualDate,
           loading: false
@@ -79,9 +79,9 @@ class MainContent extends Component {
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpense = this.state.selectedDate;
-    let newTotalAvailable = helper.calculateTotalAvailable(this.state.totalAvailable, expense);
-    let newTotalExpenditure = parseFloat(this.state.totalExpenditure)+parseFloat(expense);
-    let newDailyAvailable = helper.calculateDailyAvailable(newTotalAvailable);
+    let newTotalAvailable = (helper.calculateTotalAvailable(this.state.totalAvailable, expense)).toFixed(2);
+    let newTotalExpenditure = (parseFloat(this.state.totalExpenditure)+parseFloat(expense)).toFixed(2);
+    let newDailyAvailable = (helper.calculateDailyAvailable(newTotalAvailable)).toFixed(2);
 
     const storageExpenseData = {
       singleExpense: {
@@ -93,7 +93,7 @@ class MainContent extends Component {
       }
     };
     const storageTotalExpenditureData = {
-      totalExpenditure: newTotalExpenditure.toFixed(2)
+      totalExpenditure: newTotalExpenditure
     };
 
     axios.post('/singleExpenses.json', storageExpenseData)
@@ -118,9 +118,9 @@ class MainContent extends Component {
     });
     
     this.setState({
-      totalAvailable: newTotalAvailable.toFixed(2),
-      totalExpenditure: newTotalExpenditure.toFixed(2),
-      dailyAvailable: newDailyAvailable.toFixed(2),
+      totalAvailable: newTotalAvailable,
+      totalExpenditure: newTotalExpenditure,
+      dailyAvailable: newDailyAvailable,
       spendingInputValue: 0,
       selectedCategory: "keine"
     })

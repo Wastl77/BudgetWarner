@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import Aux from '../../hoc/Aux/Aux';
 import Button from '../UI/Button/Button';
-import { Test } from '../../helper/helper';
 
 class spendingDetailsForm extends Component {
   render() {
