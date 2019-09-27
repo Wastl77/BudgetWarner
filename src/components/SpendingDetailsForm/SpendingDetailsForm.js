@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Aux from '../../hoc/Aux/Aux';
 import Button from '../UI/Button/Button';
+import { Test } from '../../helper/helper';
 
 class spendingDetailsForm extends Component {
   render() {
@@ -72,6 +73,14 @@ class spendingDetailsForm extends Component {
             />
             EC-Karte
           </label>
+        </div>
+        <div>
+          <h1>Datum der Ausgabe</h1>
+          <input
+            type="date"
+            value={this.props.selectedDate}
+            onChange={this.props.handleDateChange}
+          />
         </div>
         <Button btnType="Cancel" clicked={this.props.cancelSpending}>Abbrechen</Button>
         <Button btnType="Continue" clicked={this.props.continueSpending}>Übernehmen</Button>

@@ -20,13 +20,16 @@ class MainContent extends Component {
     loading: false,
     showModal: false,
     selectedCategory: "keine",
-    selectedPaymentType: "bar"
+    selectedPaymentType: "bar",
+    selectedDate: null
   };
 
   componentDidMount() {
     this.setState({
       loading: true
     });
+
+    let actualDate = new Date().toLocaleDateString('en-CA');
 
     axios.get('/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json')
       .then(result => {
@@ -41,6 +44,7 @@ class MainContent extends Component {
           totalAvailable: totalAvailable.toFixed(2),
           dailyAvailable: dailyAvailable.toFixed(2),
           spendingInputValue: 0,
+          selectedDate: actualDate,
           loading: false
         })
       })
@@ -74,16 +78,18 @@ class MainContent extends Component {
     let expense = this.state.spendingInputValue;
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
+    let dateOfExpense = this.state.selectedDate;
     let newTotalAvailable = helper.calculateTotalAvailable(this.state.totalAvailable, expense);
     let newTotalExpenditure = parseFloat(this.state.totalExpenditure)+parseFloat(expense);
     let newDailyAvailable = helper.calculateDailyAvailable(newTotalAvailable);
 
     const storageExpenseData = {
       singleExpense: {
-        date: new Date(),
+        dateOfStorage: new Date(),
         expenseValue: expense,
         category: category,
-        paymentType: paymentType
+        paymentType: paymentType,
+        dateOfExpense: dateOfExpense
       }
     };
     const storageTotalExpenditureData = {
@@ -138,6 +144,12 @@ class MainContent extends Component {
     })
   };
 
+  handleDateChange = (event) => {
+    this.setState({
+      selectedDate: event.target.value
+    })
+  }; 
+
   render () {
     let mainContent = (
       <div>
@@ -164,6 +176,8 @@ class MainContent extends Component {
             handleCategoryChange={this.handleCategoryChange}
             selectedPaymentType={this.state.selectedPaymentType}
             handlePaymentTypeChange={this.handlePaymentTypeChange}
+            selectedDate={this.state.selectedDate}
+            handleDateChange={this.handleDateChange}
             cancelSpending={this.cancelSpendingHandler}
             continueSpending={this.storeSpendingHandler} />
         </Modal>
