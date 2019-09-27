@@ -60,17 +60,17 @@ export const calculateTotalAvailable = (budget, expenses) => {
 export const calculateDailyAvailable = (availableBudget) => {
 
   const daysOfMonth = (month, year) => {
-    if(month !=2) {
-      if(month==9 ||
-        month==4 ||
-        month==6 ||
-        month==11) {
+    if(month !=='2') {
+      if(month==='9' ||
+        month==='4' ||
+        month==='6' ||
+        month==='11') {
         return 30;
       } else {
         return 31;
       }
     } else {
-      return (year%4)=="" && (year%100)!="" ? 29 : 28;
+      return (year%4)==="" && (year%100)!=="" ? 29 : 28;
     }
   };
 

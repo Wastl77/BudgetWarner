@@ -97,7 +97,7 @@ class MainContent extends Component {
     };
 
     axios.post('/singleExpenses.json', storageExpenseData)
-    .then(response => console.log(response))
+    // .then(response => console.log(response))
     .catch(error => {
       console.log(error);
       this.setState({
@@ -105,7 +105,7 @@ class MainContent extends Component {
       })});
     axios.put('/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json', storageTotalExpenditureData)
     .then(response => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         loading: false
       })
