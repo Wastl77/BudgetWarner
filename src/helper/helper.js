@@ -66,12 +66,12 @@ export const calculateDailyAvailable = (availableBudget) => {
         month==='6' ||
         month==='11') {
         return 30;
-      } else {
-        return 31;
       }
-    } else {
-      return (year%4)==="" && (year%100)!=="" ? 29 : 28;
+      
+      return 31;
     }
+    
+    return (year%4)===0 && (year%100)!==0 ? 29 : 28;
   };
 
   let date = new Date();

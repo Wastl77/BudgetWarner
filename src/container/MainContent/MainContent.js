@@ -172,6 +172,7 @@ class MainContent extends Component {
       <Aux>
         <Modal show={this.state.showModal} modalClosed={this.cancelSpendingHandler}>
           <SpendingDetailsForm
+          // state in form-komponente und storage über eigene funktion oder über redux
             selectedCategory={this.state.selectedCategory}
             handleCategoryChange={this.handleCategoryChange}
             selectedPaymentType={this.state.selectedPaymentType}
@@ -181,6 +182,7 @@ class MainContent extends Component {
             cancelSpending={this.cancelSpendingHandler}
             continueSpending={this.storeSpendingHandler} />
         </Modal>
+        {/* Main Content als eigene Komponente mit prop loading */}
         {mainContent}
       </Aux>
     )
