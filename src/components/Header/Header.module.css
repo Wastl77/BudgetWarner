@@ -1,9 +1,16 @@
 .Header {
-  height: 40px;
-  border-bottom: 1px solid black;
-  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  background: var(--color--highlight-blue);
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.15);
 }
 
 h1 {
   margin: 0;
+  font-size: 1rem;
+  flex: 1;
+  text-align: center;
+  margin-right: 4rem;
 }

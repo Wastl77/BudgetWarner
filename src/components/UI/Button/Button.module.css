@@ -1,13 +1,15 @@
 .Button {
   background-color: transparent;
   border: none;
-  color: white;
   outline: none;
   cursor: pointer;
-  font: inherit;
-  padding: 10px;
-  margin: 10px;
+  padding: 0.75rem;
+  margin: 1rem;
   font-weight: bold;
+  font-size: 1rem;
+  background-color: var(--color--highlight-yellow);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
 }
 
 /* .Button:first-of-type {
@@ -16,9 +18,9 @@
 } */
 
 .Continue {
-  color: #5C9210;
 }
 
 .Cancel {
-  color: #944317;
+  background-color: var(--color--highlight-alice);
+  color: #667777;
 }

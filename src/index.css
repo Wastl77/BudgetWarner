@@ -1,3 +1,15 @@
+:root {
+  --color--highlight-blue: #AADDED;
+  --color--highlight-azure: #CAE6F4;
+  --color--highlight-alice: #F3FAFC;
+  --color--highlight-blonde: #FDF3BF;
+  --color--highlight-yellow: #FDE789;
+}
+
+html {
+  background: var(--color--highlight-alice);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,6 +17,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #222222;
 }
 
 code {

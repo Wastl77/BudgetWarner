@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './SpendingInput.module.css';
+import Button from '../UI/Button/Button';
 
 const spendingInput = (props) => (
   <div>
@@ -8,9 +9,10 @@ const spendingInput = (props) => (
       <input type="number" onChange={props.inputValue}></input>
       <label>€</label>
     </div>
-    <button 
-      className={styles.Button}
-      onClick={props.applySpending}>Übernehmen</button>
+    
+    <Button
+      btnType="submit"
+      clicked={props.applySpending}>Übernehmen</Button>
   </div>
 );
 

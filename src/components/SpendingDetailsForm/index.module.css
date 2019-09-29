@@ -1,0 +1,29 @@
+.header {
+  font-size: 1rem;
+}
+
+.radio {
+  padding: 0.5rem;
+  background: var(--color--highlight-blonde);
+  display: inline-block;
+  margin: 0.25rem;
+  border-radius: 2px;
+  transition: 0.25s;
+}
+
+.radioButton {
+  display: none;
+}
+
+.radioButton:checked + .radio {
+  background: var(--color--highlight-yellow);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.input {
+  border: 2px solid;
+  border-radius: 2px;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  font-family: sans-serif;
+}

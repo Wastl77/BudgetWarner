@@ -15,12 +15,3 @@
   font-size: 1.5rem;
   margin-left: 8px;
 }
-
-.Button {
-  height: 25px;
-  margin-top: 5px;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 2px 2px 2px lightgray;
-}

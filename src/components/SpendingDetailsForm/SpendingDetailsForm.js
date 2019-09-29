@@ -1,91 +1,90 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Aux from '../../hoc/Aux/Aux';
-import Button from '../UI/Button/Button';
+import Aux from "../../hoc/Aux/Aux";
+import Button from "../UI/Button/Button";
+import styles from "./index.module.css";
+import Radio from "./Radio";
 
 class spendingDetailsForm extends Component {
   render() {
     return (
       <Aux>
         <div>
-          <h1>Kategorie</h1>
-          <label>
-          <input
-            type="radio"
-            name="category"
+          <h2 className={styles.header}>Kategorie</h2>
+
+          <Radio
+            label="Keine"
             value="keine"
-            checked={this.props.selectedCategory === "keine"}
-            onChange={this.props.handleCategoryChange}
-            />
-            Keine
-          </label>
-          <label>
-          <input
-            type="radio"
             name="category"
+            currentlySelected={this.props.selectedCategory}
+            onChange={this.props.handleCategoryChange}
+          />
+
+          <Radio
+            label="Supermarkt"
             value="supermarkt"
-            checked={this.props.selectedCategory === "supermarkt"}
-            onChange={this.props.handleCategoryChange}
-            />
-            Supermarkt
-          </label>
-          <label>
-          <input
-            type="radio"
             name="category"
+            currentlySelected={this.props.selectedCategory}
+            onChange={this.props.handleCategoryChange}
+          />
+
+          <Radio
+            label="Drogerie"
             value="drogerie"
-            checked={this.props.selectedCategory === "drogerie"}
-            onChange={this.props.handleCategoryChange}
-            />
-            Drogerie
-          </label>
-          <label>
-          <input
-            type="radio"
             name="category"
-            value="tanken"
-            checked={this.props.selectedCategory === "tanken"}
+            currentlySelected={this.props.selectedCategory}
             onChange={this.props.handleCategoryChange}
-            />
-            Tanken
-          </label>
+          />
+
+          <Radio
+            label="Tanken"
+            value="tanken"
+            name="category"
+            currentlySelected={this.props.selectedCategory}
+            onChange={this.props.handleCategoryChange}
+          />
         </div>
+
         <div>
-          <h1>Zahlungsart</h1>
-          <label>
-          <input
-            type="radio"
-            name="paymentType"
+          <h2 className={styles.header}>Zahlungsart</h2>
+
+          <Radio
+            label="Bar"
             value="bar"
-            checked={this.props.selectedPaymentType === "bar"}
-            onChange={this.props.handlePaymentTypeChange}
-            />
-            Bar
-          </label>
-          <label>
-          <input
-            type="radio"
             name="paymentType"
-            value="ec-karte"
-            checked={this.props.selectedPaymentType === "ec-karte"}
+            currentlySelected={this.props.selectedPaymentType}
             onChange={this.props.handlePaymentTypeChange}
-            />
-            EC-Karte
-          </label>
+          />
+          <Radio
+            label="EC-Karte"
+            value="ec-karte"
+            name="paymentType"
+            currentlySelected={this.props.selectedPaymentType}
+            onChange={this.props.handlePaymentTypeChange}
+          />
         </div>
+
         <div>
-          <h1>Datum der Ausgabe</h1>
+          <h2 className={styles.header}>Datum der Ausgabe</h2>
+
           <input
             type="date"
             value={this.props.selectedDate}
             onChange={this.props.handleDateChange}
+            className={styles.input}
           />
         </div>
-        <Button btnType="Cancel" clicked={this.props.cancelSpending}>Abbrechen</Button>
-        <Button btnType="Continue" clicked={this.props.continueSpending}>Übernehmen</Button>
+
+        <Button btnType="Cancel" clicked={this.props.cancelSpending}>
+          Abbrechen
+        </Button>
+
+        <Button btnType="Continue" clicked={this.props.continueSpending}>
+          Übernehmen
+        </Button>
       </Aux>
     );
-  };
-};
+  }
+}
 
 export default spendingDetailsForm;
