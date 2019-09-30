@@ -1,0 +1,17 @@
+.radio {
+  padding: 0.5rem;
+  background: var(--color--highlight-blonde);
+  display: inline-block;
+  margin: 0.25rem;
+  border-radius: 2px;
+  transition: 0.25s;
+}
+
+.radioButton {
+  display: none;
+}
+
+.radioButton:checked + .radio {
+  background: var(--color--highlight-yellow);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.15);
+}

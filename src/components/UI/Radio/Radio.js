@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import styles from "./index.module.css";
+import styles from "./Radio.module.css";
 
 const Radio = ({ name, value, label, onChange, currentlySelected }) => {
   return (

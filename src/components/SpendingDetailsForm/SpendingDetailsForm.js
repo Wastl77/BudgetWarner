@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Aux/Aux";
 import Button from "../UI/Button/Button";
 import styles from "./index.module.css";
-import Radio from "./Radio";
+import Radio from "../UI/Radio/Radio";
 
 class spendingDetailsForm extends Component {
   render() {
