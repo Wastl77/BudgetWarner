@@ -1,15 +1,30 @@
-import React from 'react';
-import './App.css';
-import Header from './components/Header/Header';
-import MainContent from './container/MainContent/MainContent';
+import React, { Component } from "react";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <MainContent />
-    </div>
-  );
+import "./App.css";
+
+import MainContent from "./container/MainContent/MainContent";
+import Layout from "./hoc/Layout/Layout";
+import BudgetInputForm from "./container/BudgetInputForm/BudgetInputForm";
+import Auth from "./container/Auth/Auth";
+
+class App extends Component {
+  render() {
+    const routes = (
+      <Switch>
+        <Route path="/auth" component={Auth} />
+        <Route path="/admin" component={BudgetInputForm} />
+        <Route path="/" exact component={MainContent} />
+        <Redirect to="/" />
+      </Switch>
+    );
+
+    return (
+      <div className="App">
+        <Layout>{routes}</Layout>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);

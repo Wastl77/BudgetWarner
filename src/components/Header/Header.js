@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-import DrawerToggle from '../Navigation/SideDrawer/DrawerToggle/DrawerToggle';
+import DrawerToggle from "../Navigation/SideDrawer/DrawerToggle/DrawerToggle";
 
-import styles from './Header.module.css';
+import styles from "./Header.module.css";
 
-const header = () => {
+const header = props => {
   return (
     <header className={styles.Header}>
-      <DrawerToggle />
+      <DrawerToggle clicked={props.drawerToggleClicked} />
       <h1>Budget Warner App</h1>
     </header>
-  )
+  );
 };
 
 export default header;
