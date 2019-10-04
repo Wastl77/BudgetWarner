@@ -15,7 +15,7 @@ const Radio = ({ name, value, label, onChange, currentlySelected }) => {
         className={styles.radioButton}
       />
 
-      <label className={styles.radio} for={`${name}:${value}`}>
+      <label className={styles.radio} htmlFor={`${name}:${value}`}>
         {label}
       </label>
     </Fragment>
