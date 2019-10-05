@@ -1,40 +1,43 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Button from "../../components/UI/Button/Button";
 
 import styles from "./BudgetInputForm.module.css";
+import * as actionTypes from "../../store/actions";
 
 class budgetInputForm extends Component {
-  state = {
-    januar: "23",
-    februar: "",
-    märz: "",
-    april: "",
-    mai: "",
-    juni: "",
-    juli: "",
-    august: "",
-    september: "",
-    oktober: "",
-    november: "",
-    dezember: ""
-  };
+  // state = {
+  //   januar: "",
+  //   februar: "",
+  //   märz: "",
+  //   april: "",
+  //   mai: "",
+  //   juni: "",
+  //   juli: "",
+  //   august: "",
+  //   september: "",
+  //   oktober: "",
+  //   november: "",
+  //   dezember: ""
+  // };
 
   storeBudget = event => {
     event.preventDefault();
-    console.log("clicked");
+    console.log("aufgerufen");
   };
 
   inputChangedHandler = (event, elementId) => {
-    this.setState({
-      [elementId]: event.target.value
-    });
+    const { value } = event.target;
+    this.props.onBudgetInputChanged({ value: value, elementId: elementId });
   };
 
   render() {
     let inputArray = [];
 
-    for (let key in this.state) {
+    // object.keys lieber verwenden
+    let key = "";
+    for (key in this.props.budget) {
       inputArray.push({
         id: key
       });
@@ -48,7 +51,7 @@ class budgetInputForm extends Component {
             <input
               key={inputElement.id}
               type="number"
-              value={this.state[inputElement.id]}
+              value={this.props.budget[inputElement.id]}
               onChange={event =>
                 this.inputChangedHandler(event, inputElement.id)
               }
@@ -69,4 +72,20 @@ class budgetInputForm extends Component {
   }
 }
 
-export default budgetInputForm;
+const mapStateToProps = state => {
+  return {
+    budget: state.budget
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onBudgetInputChanged: payload =>
+      dispatch({ type: actionTypes.ON_BUDGET_INPUT_CHANGED, payload: payload })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(budgetInputForm);

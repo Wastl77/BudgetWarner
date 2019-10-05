@@ -7,7 +7,21 @@ const initialState = {
   totalAvailable: 0,
   dailyAvailable: 0,
   showModal: false,
-  loading: false
+  loading: false,
+  budget: {
+    januar: "",
+    februar: "",
+    märz: "",
+    april: "",
+    mai: "",
+    juni: "",
+    juli: "",
+    august: "",
+    september: "",
+    oktober: "",
+    november: "",
+    dezember: ""
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +59,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: !state.loading
       };
+    case actionTypes.ON_BUDGET_INPUT_CHANGED: {
+      return {
+        ...state,
+        budget: {
+          ...state.budget,
+          [action.payload.elementId]: action.payload.value
+        }
+      };
+    }
     default:
       return state;
   }
