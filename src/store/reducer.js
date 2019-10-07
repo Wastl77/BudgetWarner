@@ -9,18 +9,18 @@ const initialState = {
   showModal: false,
   loading: false,
   budget: {
-    januar: "",
-    februar: "",
-    märz: "",
-    april: "",
-    mai: "",
-    juni: "",
-    juli: "",
-    august: "",
-    september: "",
-    oktober: "",
-    november: "",
-    dezember: ""
+    januar: 0,
+    februar: 0,
+    märz: 0,
+    april: 0,
+    mai: 0,
+    juni: 0,
+    juli: 0,
+    august: 0,
+    september: 0,
+    oktober: 0,
+    november: 0,
+    dezember: 0
   }
 };
 
@@ -29,6 +29,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SET_INITIAL_STATE: {
       const totalExpenditure = (+action.payload.totalExpenditure).toFixed(2);
       const monthlyBudget = (+action.payload.monthlyBudget).toFixed(2);
+      const budget = action.payload.budget;
       const available = helper.calculateAvailable(
         monthlyBudget,
         totalExpenditure
@@ -39,7 +40,8 @@ const reducer = (state = initialState, action) => {
         monthlyBudget: monthlyBudget,
         totalExpenditure: totalExpenditure,
         totalAvailable: available.totalAvailable,
-        dailyAvailable: available.dailyAvailable
+        dailyAvailable: available.dailyAvailable,
+        budget: budget
       };
     }
     case actionTypes.ON_STORE_SPENDING:

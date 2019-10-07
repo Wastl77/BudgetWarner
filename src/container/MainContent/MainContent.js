@@ -10,6 +10,7 @@ import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import * as actionTypes from "../../store/actions";
+import * as helper from "../../helper/helper";
 
 class MainContent extends Component {
   state = {
@@ -20,14 +21,22 @@ class MainContent extends Component {
     this.props.toggleLoading();
 
     axios
-      .get("/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json")
-      .then(result => {
-        this.props.setInitialState({
-          monthlyBudget: 354,
-          totalExpenditure: result.data.totalExpenditure
-        });
-        this.props.toggleLoading();
-      })
+      .all([
+        axios.get("/expenditure/-Lq_T-H91dNZXUolCPon.json"),
+        axios.get("/budget/-Lq_SMZGI0D_kJEoFtPN.json")
+      ])
+      .then(
+        axios.spread((totalExp, budget) => {
+          let monthlyBudget = budget.data[helper.getActualMonthString()];
+          let totalExpenditure = totalExp.data.totalExpenditure;
+          this.props.setInitialState({
+            totalExpenditure: totalExpenditure,
+            budget: budget.data,
+            monthlyBudget: monthlyBudget
+          });
+          this.props.toggleLoading();
+        })
+      )
       .catch(error => {
         console.log(error);
         this.props.toggleLoading();

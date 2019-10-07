@@ -55,7 +55,7 @@ class spendingDetailsForm extends Component {
       });
     axios
       .put(
-        "/expenditure/-LoUWQkmjyAhwPsPHU6l/totalExpenditure.json",
+        "/expenditure/-Lq_T-H91dNZXUolCPon.json",
         storageTotalExpenditureData
       )
       .then(response => {

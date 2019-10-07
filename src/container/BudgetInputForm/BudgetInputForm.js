@@ -2,29 +2,28 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Button from "../../components/UI/Button/Button";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 import styles from "./BudgetInputForm.module.css";
 import * as actionTypes from "../../store/actions";
+import axios from "axios";
 
 class budgetInputForm extends Component {
-  // state = {
-  //   januar: "",
-  //   februar: "",
-  //   märz: "",
-  //   april: "",
-  //   mai: "",
-  //   juni: "",
-  //   juli: "",
-  //   august: "",
-  //   september: "",
-  //   oktober: "",
-  //   november: "",
-  //   dezember: ""
-  // };
-
-  storeBudget = event => {
+  storeBudgetHandler = event => {
     event.preventDefault();
-    console.log("aufgerufen");
+    this.props.toggleLoading();
+
+    let budget = { ...this.props.budget };
+
+    axios
+      .put("/budget/-Lq_SMZGI0D_kJEoFtPN.json", budget)
+      .then(() => {
+        this.props.toggleLoading();
+      })
+      .catch(error => {
+        console.log(error);
+        this.props.toggleLoading();
+      });
   };
 
   inputChangedHandler = (event, elementId) => {
@@ -44,7 +43,7 @@ class budgetInputForm extends Component {
     }
 
     let form = (
-      <form onSubmit={this.storeBudget}>
+      <form onSubmit={this.storeBudgetHandler}>
         {inputArray.map(inputElement => (
           <div key={inputElement.id + "_div"} className={styles.BudgetInput}>
             <label key={inputElement.id + "_label"}>{inputElement.id}</label>
@@ -68,20 +67,25 @@ class budgetInputForm extends Component {
       </form>
     );
 
-    return <div>{form}</div>;
+    if (this.props.loading) {
+      form = <Spinner />;
+    }
+    return form;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    budget: state.budget
+    budget: state.budget,
+    loading: state.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onBudgetInputChanged: payload =>
-      dispatch({ type: actionTypes.ON_BUDGET_INPUT_CHANGED, payload: payload })
+      dispatch({ type: actionTypes.ON_BUDGET_INPUT_CHANGED, payload: payload }),
+    toggleLoading: () => dispatch({ type: actionTypes.TOGGLE_LOADING })
   };
 };
 
