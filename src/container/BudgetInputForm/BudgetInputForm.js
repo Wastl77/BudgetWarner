@@ -8,7 +8,7 @@ import styles from "./BudgetInputForm.module.css";
 import * as actionTypes from "../../store/actions";
 import axios from "axios";
 
-class budgetInputForm extends Component {
+class BudgetInputForm extends Component {
   storeBudgetHandler = event => {
     event.preventDefault();
     this.props.toggleLoading();
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(budgetInputForm);
+)(BudgetInputForm);

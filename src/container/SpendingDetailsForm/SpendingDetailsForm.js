@@ -10,7 +10,7 @@ import Radio from "../../components/UI/Radio/Radio";
 import * as helper from "../../helper/helper";
 import * as actionTypes from "../../store/actions";
 
-class spendingDetailsForm extends Component {
+class SpendingDetailsForm extends Component {
   state = {
     selectedCategory: "keine",
     selectedPaymentType: "bar",
@@ -197,4 +197,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(spendingDetailsForm);
+)(SpendingDetailsForm);

@@ -21,7 +21,9 @@ const initialState = {
     oktober: 0,
     november: 0,
     dezember: 0
-  }
+  },
+  idToken: null,
+  userId: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -68,6 +70,13 @@ const reducer = (state = initialState, action) => {
           ...state.budget,
           [action.payload.elementId]: action.payload.value
         }
+      };
+    }
+    case actionTypes.ON_LOGIN: {
+      return {
+        ...state,
+        idToken: action.payload.idToken,
+        userId: action.payload.userId
       };
     }
     default:
