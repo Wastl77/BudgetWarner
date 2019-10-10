@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+// import axios from "axios";
 
 import Aux from "../../hoc/Aux/Aux";
 import BudgetOutputs from "../../components/BudgetOutputs/BudgetOutputs";
@@ -9,8 +9,8 @@ import Modal from "../../components/UI/Modal/Modal";
 import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
-import * as actionCreators from "../../store/actions/actions";
-import * as helper from "../../helper/helper";
+import * as actions from "../../store/actions/index";
+// import * as helper from "../../helper/helper";
 
 class MainContent extends Component {
   state = {
@@ -18,29 +18,7 @@ class MainContent extends Component {
   };
 
   componentDidMount() {
-    this.props.toggleLoading();
-
-    axios
-      .all([
-        axios.get("/expenditure/-Lq_T-H91dNZXUolCPon.json"),
-        axios.get("/budget/-Lq_SMZGI0D_kJEoFtPN.json")
-      ])
-      .then(
-        axios.spread((totalExp, budget) => {
-          let monthlyBudget = budget.data[helper.getActualMonthString()];
-          let totalExpenditure = totalExp.data.totalExpenditure;
-          this.props.setInitialState({
-            totalExpenditure: totalExpenditure,
-            budget: budget.data,
-            monthlyBudget: monthlyBudget
-          });
-          this.props.toggleLoading();
-        })
-      )
-      .catch(error => {
-        console.log(error);
-        this.props.toggleLoading();
-      });
+    this.props.onSetInitialState();
   }
 
   spendingInputValueHandler = event => {
@@ -69,6 +47,14 @@ class MainContent extends Component {
     if (this.props.loading) {
       content = <Spinner />;
     }
+    if (this.props.error) {
+      content = (
+        <p>
+          Es ist ein Fehler aufgetreten! Bei fehlender Internetverbindung später
+          erneut versuchen!
+        </p>
+      );
+    }
 
     return content;
   }
@@ -81,16 +67,15 @@ const mapStateToProps = state => {
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
-    loading: state.main.loading
+    loading: state.main.loading,
+    error: state.main.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setInitialState: payload =>
-      dispatch(actionCreators.setInitialState(payload)),
-    toggleModal: () => dispatch(actionCreators.toggleModal()),
-    toggleLoading: () => dispatch(actionCreators.toggleLoading())
+    onSetInitialState: () => dispatch(actions.onSetInitialState()),
+    toggleModal: () => dispatch(actions.toggleModal())
   };
 };
 

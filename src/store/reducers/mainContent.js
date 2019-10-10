@@ -1,5 +1,5 @@
 import * as helper from "../../helper/helper";
-import * as actionTypes from "../actions/actions";
+import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   monthlyBudget: 0,
@@ -8,6 +8,7 @@ const initialState = {
   dailyAvailable: 0,
   showModal: false,
   loading: false,
+  error: false,
   budget: {
     januar: 0,
     februar: 0,
@@ -41,9 +42,22 @@ const reducer = (state = initialState, action) => {
         totalExpenditure: totalExpenditure,
         totalAvailable: available.totalAvailable,
         dailyAvailable: available.dailyAvailable,
-        budget: budget
+        budget: budget,
+        loading: false
       };
     }
+    case actionTypes.SET_INITIAL_STATE_START:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case actionTypes.SET_INITIAL_STATE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
     case actionTypes.ON_STORE_SPENDING:
       return {
         ...state,

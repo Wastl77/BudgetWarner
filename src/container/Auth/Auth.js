@@ -5,7 +5,7 @@ import axios from "axios";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import styles from "./Auth.module.css";
-import * as actionCreators from "../../store/actions/actions";
+import * as actions from "../../store/actions/index";
 
 class Login extends Component {
   state = {
@@ -85,8 +85,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: payload => dispatch(actionCreators.onLogin(payload)),
-    toggleLoading: () => dispatch(actionCreators.toggleLoading())
+    onLogin: payload => dispatch(actions.onLogin(payload)),
+    toggleLoading: () => dispatch(actions.toggleLoading())
   };
 };
 

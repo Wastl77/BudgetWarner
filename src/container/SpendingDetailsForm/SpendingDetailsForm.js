@@ -8,7 +8,7 @@ import styles from "./index.module.css";
 import Radio from "../../components/UI/Radio/Radio";
 
 import * as helper from "../../helper/helper";
-import * as actionCreators from "../../store/actions/actions";
+import * as actions from "../../store/actions/index";
 
 class SpendingDetailsForm extends Component {
   state = {
@@ -187,10 +187,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStoreSpending: payload =>
-      dispatch(actionCreators.onStoreSpending(payload)),
-    toggleModal: () => dispatch(actionCreators.toggleModal()),
-    toggleLoading: () => dispatch(actionCreators.toggleLoading())
+    onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
+    toggleModal: () => dispatch(actions.toggleModal()),
+    toggleLoading: () => dispatch(actions.toggleLoading())
   };
 };
 
