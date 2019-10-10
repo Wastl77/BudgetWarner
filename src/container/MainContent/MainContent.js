@@ -9,7 +9,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
-import * as actionTypes from "../../store/actions";
+import * as actionCreators from "../../store/actions/actions";
 import * as helper from "../../helper/helper";
 
 class MainContent extends Component {
@@ -88,9 +88,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setInitialState: payload =>
-      dispatch({ type: actionTypes.SET_INITIAL_STATE, payload: payload }),
-    toggleModal: () => dispatch({ type: actionTypes.TOGGLE_MODAL }),
-    toggleLoading: () => dispatch({ type: actionTypes.TOGGLE_LOADING })
+      dispatch(actionCreators.setInitialState(payload)),
+    toggleModal: () => dispatch(actionCreators.toggleModal()),
+    toggleLoading: () => dispatch(actionCreators.toggleLoading())
   };
 };
 

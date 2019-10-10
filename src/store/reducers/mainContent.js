@@ -1,5 +1,5 @@
 import * as helper from "../../helper/helper";
-import * as actionTypes from "../actions";
+import * as actionTypes from "../actions/actions";
 
 const initialState = {
   monthlyBudget: 0,

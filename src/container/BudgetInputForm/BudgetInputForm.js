@@ -5,7 +5,7 @@ import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import styles from "./BudgetInputForm.module.css";
-import * as actionTypes from "../../store/actions";
+import * as actionCreators from "../../store/actions/actions";
 import axios from "axios";
 import months from "../../assets/data/months";
 
@@ -83,8 +83,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onBudgetInputChanged: payload =>
-      dispatch({ type: actionTypes.ON_BUDGET_INPUT_CHANGED, payload: payload }),
-    toggleLoading: () => dispatch({ type: actionTypes.TOGGLE_LOADING })
+      dispatch(actionCreators.onBudgetInputChanged(payload)),
+    toggleLoading: () => dispatch(actionCreators.toggleLoading())
   };
 };
 
