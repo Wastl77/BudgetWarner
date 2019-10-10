@@ -79,7 +79,7 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading
+    loading: state.main.loading
   };
 };
 

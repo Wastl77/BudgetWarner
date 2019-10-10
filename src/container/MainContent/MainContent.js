@@ -76,12 +76,12 @@ class MainContent extends Component {
 
 const mapStateToProps = state => {
   return {
-    monthlyBudget: state.monthlyBudget,
-    totalExpenditure: state.totalExpenditure,
-    totalAvailable: state.totalAvailable,
-    dailyAvailable: state.dailyAvailable,
-    showModal: state.showModal,
-    loading: state.loading
+    monthlyBudget: state.main.monthlyBudget,
+    totalExpenditure: state.main.totalExpenditure,
+    totalAvailable: state.main.totalAvailable,
+    dailyAvailable: state.main.dailyAvailable,
+    showModal: state.main.showModal,
+    loading: state.main.loading
   };
 };
 

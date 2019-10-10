@@ -7,6 +7,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import styles from "./BudgetInputForm.module.css";
 import * as actionTypes from "../../store/actions";
 import axios from "axios";
+import months from "../../assets/data/months";
 
 class BudgetInputForm extends Component {
   storeBudgetHandler = event => {
@@ -32,28 +33,26 @@ class BudgetInputForm extends Component {
   };
 
   render() {
-    let inputArray = [];
+    // let inputArray = [];
 
-    // object.keys lieber verwenden
-    let key = "";
-    for (key in this.props.budget) {
-      inputArray.push({
-        id: key
-      });
-    }
+    // // object.keys lieber verwenden
+    // let key = "";
+    // for (key in this.props.budget) {
+    //   inputArray.push({
+    //     id: key
+    //   });
+    // }
 
     let form = (
       <form onSubmit={this.storeBudgetHandler}>
-        {inputArray.map(inputElement => (
-          <div key={inputElement.id + "_div"} className={styles.BudgetInput}>
-            <label key={inputElement.id + "_label"}>{inputElement.id}</label>
+        {months.map(inputElement => (
+          <div key={inputElement + "_div"} className={styles.BudgetInput}>
+            <label key={inputElement + "_label"}>{inputElement}</label>
             <input
-              key={inputElement.id}
+              key={inputElement}
               type="number"
-              value={this.props.budget[inputElement.id]}
-              onChange={event =>
-                this.inputChangedHandler(event, inputElement.id)
-              }
+              value={this.props.budget[inputElement]}
+              onChange={event => this.inputChangedHandler(event, inputElement)}
             />
             <p
               key={inputElement.id + "_euroLabel"}
@@ -76,8 +75,8 @@ class BudgetInputForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    budget: state.budget,
-    loading: state.loading
+    budget: state.main.budget,
+    loading: state.main.loading
   };
 };
 

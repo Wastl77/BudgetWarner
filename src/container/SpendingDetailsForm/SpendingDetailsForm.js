@@ -177,11 +177,11 @@ class SpendingDetailsForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    monthlyBudget: state.monthlyBudget,
-    totalExpenditure: state.totalExpenditure,
-    totalAvailable: state.totalAvailable,
-    dailyAvailable: state.dailyAvailable,
-    showModal: state.showModal
+    monthlyBudget: state.main.monthlyBudget,
+    totalExpenditure: state.main.totalExpenditure,
+    totalAvailable: state.main.totalAvailable,
+    dailyAvailable: state.main.dailyAvailable,
+    showModal: state.main.showModal
   };
 };
 
