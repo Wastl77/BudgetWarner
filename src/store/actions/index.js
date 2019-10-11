@@ -5,4 +5,4 @@ export {
   onBudgetInputChanged,
   onStoreSpending
 } from "./mainContent";
-export { onLogin } from "./auth";
+export { onLogin, logout, authCheckState } from "./auth";

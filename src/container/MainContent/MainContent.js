@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 // import axios from "axios";
 
 import Aux from "../../hoc/Aux/Aux";
@@ -18,7 +19,9 @@ class MainContent extends Component {
   };
 
   componentDidMount() {
-    this.props.onSetInitialState();
+    if (this.props.isAuthenticated) {
+      this.props.onSetInitialState();
+    }
   }
 
   spendingInputValueHandler = event => {
@@ -55,6 +58,9 @@ class MainContent extends Component {
         </p>
       );
     }
+    if (!this.props.isAuthenticated) {
+      content = <Redirect to="auth" />;
+    }
 
     return content;
   }
@@ -67,6 +73,7 @@ const mapStateToProps = state => {
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
+    isAuthenticated: state.auth.idToken !== null,
     loading: state.main.loading,
     error: state.main.error
   };

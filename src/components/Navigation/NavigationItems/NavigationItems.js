@@ -3,13 +3,19 @@ import React from "react";
 import styles from "./NavigationItems.module.css";
 import NavigationItem from "./NavigationItem/NavigationItem";
 
-const navigationItems = () => (
+const navigationItems = props => (
   <ul className={styles.NavigationItems}>
     <NavigationItem link="/" exact>
       Startseite
     </NavigationItem>
-    <NavigationItem link="/admin">Admin</NavigationItem>
-    <NavigationItem link="/auth">Login</NavigationItem>
+    {props.isAuthenticated ? (
+      <NavigationItem link="/admin">Admin</NavigationItem>
+    ) : null}
+    {props.isAuthenticated ? (
+      <NavigationItem link="/logout">Logout</NavigationItem>
+    ) : (
+      <NavigationItem link="/auth">Login</NavigationItem>
+    )}
   </ul>
 );
 

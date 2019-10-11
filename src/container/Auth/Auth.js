@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
@@ -15,33 +14,10 @@ class Login extends Component {
 
   submitHandler = event => {
     event.preventDefault();
-
-    this.props.toggleLoading();
-
-    const APIKey = process.env.REACT_APP_API_KEY;
-    const loginData = {
+    this.props.onLogin({
       email: this.state.email,
-      password: this.state.password,
-      returnSecureToken: true
-    };
-
-    axios
-      .post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${APIKey}`,
-        loginData
-      )
-      .then(response => {
-        console.log(response.data);
-        this.props.onLogin({
-          idToken: response.data.idToken,
-          userId: response.data.localId
-        });
-        this.props.toggleLoading();
-      })
-      .catch(error => {
-        console.log(error);
-        this.props.toggleLoading();
-      });
+      password: this.state.password
+    });
   };
 
   onChangedHandler = (event, id) => {
@@ -79,14 +55,13 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.main.loading
+    loading: state.auth.loading
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: payload => dispatch(actions.onLogin(payload)),
-    toggleLoading: () => dispatch(actions.toggleLoading())
+    onLogin: payload => dispatch(actions.onLogin(payload))
   };
 };
 
