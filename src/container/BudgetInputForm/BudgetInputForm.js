@@ -6,25 +6,15 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 import styles from "./BudgetInputForm.module.css";
 import * as actions from "../../store/actions/index";
-import axios from "axios";
 import months from "../../assets/data/months";
 
 class BudgetInputForm extends Component {
-  storeBudgetHandler = event => {
+  onStoreBudgetHandler = event => {
     event.preventDefault();
-    this.props.toggleLoading();
-
-    let budget = { ...this.props.budget };
-
-    axios
-      .put("/budget/-Lq_SMZGI0D_kJEoFtPN.json", budget)
-      .then(() => {
-        this.props.toggleLoading();
-      })
-      .catch(error => {
-        console.log(error);
-        this.props.toggleLoading();
-      });
+    const budget = { ...this.props.budget };
+    const idToken = this.props.idToken;
+    const payload = [budget, idToken];
+    this.props.onStoreBudget(payload);
   };
 
   inputChangedHandler = (event, elementId) => {
@@ -33,18 +23,8 @@ class BudgetInputForm extends Component {
   };
 
   render() {
-    // let inputArray = [];
-
-    // // object.keys lieber verwenden
-    // let key = "";
-    // for (key in this.props.budget) {
-    //   inputArray.push({
-    //     id: key
-    //   });
-    // }
-
     let form = (
-      <form onSubmit={this.storeBudgetHandler}>
+      <form onSubmit={this.onStoreBudgetHandler}>
         {months.map(inputElement => (
           <div key={inputElement + "_div"} className={styles.BudgetInput}>
             <label key={inputElement + "_label"}>{inputElement}</label>
@@ -76,7 +56,8 @@ class BudgetInputForm extends Component {
 const mapStateToProps = state => {
   return {
     budget: state.main.budget,
-    loading: state.main.loading
+    loading: state.main.loading,
+    idToken: state.auth.idToken
   };
 };
 
@@ -84,6 +65,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onBudgetInputChanged: payload =>
       dispatch(actions.onBudgetInputChanged(payload)),
+    onStoreBudget: payload => dispatch(actions.onStoreBudget(payload)),
     toggleLoading: () => dispatch(actions.toggleLoading())
   };
 };

@@ -30,6 +30,16 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={MainContent} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+
+    if (this.props.isAdmin) {
+      routes = (
+        <Switch>
+          <Route path="/logout" component={Logout} />
           <Route path="/admin" component={BudgetInputForm} />
           <Route path="/" exact component={MainContent} />
           <Redirect to="/" />
@@ -47,7 +57,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.idToken !== null
+    isAuthenticated: state.auth.idToken !== null,
+    isAdmin: state.auth.userId === "g60PZDjuZrMKgFskQL6tTFB7szA2"
   };
 };
 

@@ -4,6 +4,7 @@ export {
   toggleLoading,
   onBudgetInputChanged,
   onStoreSpending,
-  confirmError
+  confirmError,
+  onStoreBudget
 } from "./mainContent";
 export { onLogin, logout, authCheckState, confirmAuthError } from "./auth";

@@ -28,6 +28,7 @@ class Layout extends Component {
           open={this.state.showSideDrawer}
           closed={this.sideDrawerClosedHandler}
           isAuthenticated={this.props.isAuthenticated}
+          isAdmin={this.props.isAdmin}
         />
         <main className={styles.Content}>{this.props.children}</main>
       </Fragment>
@@ -37,7 +38,8 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.idToken !== null
+    isAuthenticated: state.auth.idToken !== null,
+    isAdmin: state.auth.userId === "g60PZDjuZrMKgFskQL6tTFB7szA2"
   };
 };
 

@@ -70,6 +70,21 @@ export const onStoreSpending = payload => {
   };
 };
 
+export const onStoreBudget = payload => {
+  return dispatch => {
+    dispatch(fetchDataStart());
+    axios
+      .put(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${payload[1]}`, payload[0])
+      .then(() => {
+        dispatch(toggleLoading());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchDataFail({ error: error.message }));
+      });
+  };
+};
+
 export const onStoreSpendingSuccess = payload => {
   return {
     type: actionTypes.ON_STORE_SPENDING_SUCCESS,

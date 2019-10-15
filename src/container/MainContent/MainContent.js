@@ -18,6 +18,7 @@ class MainContent extends Component {
   };
 
   componentDidMount() {
+    console.log("cDM aufgerufen auf MainContent");
     if (this.props.isAuthenticated) {
       this.props.onSetInitialState(this.props.idToken);
     }

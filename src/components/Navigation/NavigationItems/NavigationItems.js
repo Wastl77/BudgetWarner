@@ -8,7 +8,7 @@ const navigationItems = props => (
     <NavigationItem link="/" exact>
       Startseite
     </NavigationItem>
-    {props.isAuthenticated ? (
+    {props.isAdmin ? (
       <NavigationItem link="/admin">Admin</NavigationItem>
     ) : null}
     {props.isAuthenticated ? (
