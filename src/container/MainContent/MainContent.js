@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-// import axios from "axios";
 
 import Aux from "../../hoc/Aux/Aux";
 import BudgetOutputs from "../../components/BudgetOutputs/BudgetOutputs";
@@ -11,7 +10,6 @@ import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 import * as actions from "../../store/actions/index";
-// import * as helper from "../../helper/helper";
 
 class MainContent extends Component {
   state = {
@@ -20,7 +18,7 @@ class MainContent extends Component {
 
   componentDidMount() {
     if (this.props.isAuthenticated) {
-      this.props.onSetInitialState();
+      this.props.onSetInitialState(this.props.idToken);
     }
   }
 
@@ -74,6 +72,7 @@ const mapStateToProps = state => {
     dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
     isAuthenticated: state.auth.idToken !== null,
+    idToken: state.auth.idToken,
     loading: state.main.loading,
     error: state.main.error
   };
@@ -81,7 +80,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetInitialState: () => dispatch(actions.onSetInitialState()),
+    onSetInitialState: idToken => dispatch(actions.onSetInitialState(idToken)),
     toggleModal: () => dispatch(actions.toggleModal())
   };
 };

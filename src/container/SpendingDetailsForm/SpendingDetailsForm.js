@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 
 import Aux from "../../hoc/Aux/Aux";
 import Button from "../../components/UI/Button/Button";
@@ -19,7 +18,6 @@ class SpendingDetailsForm extends Component {
 
   storeSpendingHandler = () => {
     // if value = 0 Check adden und Modal mit Fehlermeldung zeigen falls 0
-    this.props.toggleLoading();
 
     let expense = this.props.spendingValue;
     let category = this.state.selectedCategory;
@@ -46,34 +44,16 @@ class SpendingDetailsForm extends Component {
       totalExpenditure: newTotalExpenditure
     };
 
-    axios
-      .post("/singleExpenses.json", storageExpenseData)
-      // .then(response => console.log(response))
-      .catch(error => {
-        console.log(error);
-        this.props.toggleLoading();
-      });
-    axios
-      .put(
-        "/expenditure/-Lq_T-H91dNZXUolCPon.json",
-        storageTotalExpenditureData
-      )
-      .then(response => {
-        // console.log(response);
-        this.props.toggleLoading();
-      })
-      .catch(error => {
-        console.log(error);
-        this.props.toggleLoading();
-      });
+    const idToken = this.props.idToken;
 
-    this.props.onStoreSpending({
-      totalAvailable: available.totalAvailable,
-      totalExpenditure: newTotalExpenditure,
-      dailyAvailable: available.dailyAvailable
-    });
+    const payload = [
+      storageExpenseData,
+      storageTotalExpenditureData,
+      available,
+      idToken
+    ];
 
-    this.props.toggleModal();
+    this.props.onStoreSpending(payload);
   };
 
   handleCategoryChange = event => {
@@ -95,7 +75,7 @@ class SpendingDetailsForm extends Component {
   };
 
   render() {
-    return (
+    let content = (
       <Aux>
         <div>
           <h2 className={styles.header}>Kategorie</h2>
@@ -172,6 +152,17 @@ class SpendingDetailsForm extends Component {
         </Button>
       </Aux>
     );
+
+    if (this.props.error) {
+      content = (
+        <p>
+          Es ist ein Fehler aufgetreten! Bei fehlender Internetverbindung später
+          erneut versuchen!
+        </p>
+      );
+    }
+
+    return content;
   }
 }
 
@@ -181,15 +172,15 @@ const mapStateToProps = state => {
     totalExpenditure: state.main.totalExpenditure,
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
-    showModal: state.main.showModal
+    showModal: state.main.showModal,
+    idToken: state.auth.idToken
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
-    toggleModal: () => dispatch(actions.toggleModal()),
-    toggleLoading: () => dispatch(actions.toggleLoading())
+    toggleModal: () => dispatch(actions.toggleModal())
   };
 };
 

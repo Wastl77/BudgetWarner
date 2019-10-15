@@ -2,14 +2,14 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import * as helper from "../../helper/helper";
 
-export const onSetInitialState = () => {
+export const onSetInitialState = idToken => {
   return dispatch => {
-    dispatch(setInitialStateStart());
+    dispatch(fetchDataStart());
 
     axios
       .all([
-        axios.get("/expenditure/-Lq_T-H91dNZXUolCPon.json"),
-        axios.get("/budget/-Lq_SMZGI0D_kJEoFtPN.json")
+        axios.get(`/expenditure/-Lq_T-H91dNZXUolCPon.json?auth=${idToken}`),
+        axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`)
       ])
       .then(
         axios.spread((totalExp, budget) => {
@@ -26,14 +26,45 @@ export const onSetInitialState = () => {
       )
       .catch(error => {
         console.log(error);
-        dispatch(setInitialStateFail());
+        dispatch(fetchDataFail());
       });
   };
 };
 
 export const onStoreSpending = payload => {
+  return dispatch => {
+    dispatch(fetchDataStart());
+
+    axios
+      .all([
+        axios.post(`/singleExpenses.json?auth=${payload[3]}`, payload[0]),
+        axios.put(
+          `/expenditure/-Lq_T-H91dNZXUolCPon.json?auth=${payload[3]}`,
+          payload[1]
+        )
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          const payloadSuccess = {
+            totalAvailable: payload[2].totalAvailable,
+            totalExpenditure: payload[1].totalExpenditure,
+            dailyAvailable: payload[2].dailyAvailable
+          };
+          dispatch(onStoreSpendingSuccess(payloadSuccess));
+          dispatch(toggleModal());
+        })
+      )
+      .catch(error => {
+        console.log(error);
+        dispatch(fetchDataFail(error));
+        dispatch(toggleModal());
+      });
+  };
+};
+
+export const onStoreSpendingSuccess = payload => {
   return {
-    type: actionTypes.ON_STORE_SPENDING,
+    type: actionTypes.ON_STORE_SPENDING_SUCCESS,
     payload: payload
   };
 };
@@ -50,9 +81,9 @@ export const toggleLoading = () => {
   };
 };
 
-export const setInitialStateStart = () => {
+export const fetchDataStart = () => {
   return {
-    type: actionTypes.SET_INITIAL_STATE_START
+    type: actionTypes.FETCH_DATA_START
   };
 };
 
@@ -63,9 +94,9 @@ export const setInitialState = payload => {
   };
 };
 
-export const setInitialStateFail = () => {
+export const fetchDataFail = () => {
   return {
-    type: actionTypes.SET_INITIAL_STATE_FAIL
+    type: actionTypes.FETCH_DATA_FAIL
   };
 };
 

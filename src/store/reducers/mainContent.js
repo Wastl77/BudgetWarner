@@ -46,24 +46,26 @@ const reducer = (state = initialState, action) => {
         loading: false
       };
     }
-    case actionTypes.SET_INITIAL_STATE_START:
+    case actionTypes.FETCH_DATA_START:
       return {
         ...state,
         loading: true,
         error: false
       };
-    case actionTypes.SET_INITIAL_STATE_FAIL:
+    case actionTypes.FETCH_DATA_FAIL:
       return {
         ...state,
         loading: false,
         error: true
       };
-    case actionTypes.ON_STORE_SPENDING:
+    case actionTypes.ON_STORE_SPENDING_SUCCESS:
       return {
         ...state,
         totalAvailable: action.payload.totalAvailable,
         totalExpenditure: action.payload.totalExpenditure,
-        dailyAvailable: action.payload.dailyAvailable
+        dailyAvailable: action.payload.dailyAvailable,
+        loading: false,
+        error: false
       };
     case actionTypes.TOGGLE_MODAL:
       return {
