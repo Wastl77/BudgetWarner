@@ -3,6 +3,7 @@ export {
   toggleModal,
   toggleLoading,
   onBudgetInputChanged,
-  onStoreSpending
+  onStoreSpending,
+  confirmError
 } from "./mainContent";
-export { onLogin, logout, authCheckState } from "./auth";
+export { onLogin, logout, authCheckState, confirmAuthError } from "./auth";

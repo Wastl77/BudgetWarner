@@ -39,6 +39,12 @@ const reducer = (state = initialState, action) => {
         userId: null
       };
     }
+    case actionTypes.CONFIRM_AUTH_ERROR: {
+      return {
+        ...state,
+        error: null
+      };
+    }
     default:
       return state;
   }

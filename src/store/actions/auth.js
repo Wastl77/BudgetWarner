@@ -35,8 +35,12 @@ export const onLogin = payload => {
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(error => {
-        console.log(error);
-        dispatch(authFail({ error: error }));
+        console.log(error.message);
+        let errorMessage = error.message;
+        if (error.response !== undefined) {
+          errorMessage = error.response.data.error.message;
+        }
+        dispatch(authFail({ error: errorMessage }));
       });
   };
 };
@@ -61,9 +65,14 @@ export const authFail = payload => {
   };
 };
 
+export const confirmAuthError = () => {
+  return {
+    type: actionTypes.CONFIRM_AUTH_ERROR
+  };
+};
+
 export const checkAuthTimeout = expirationTime => {
   return dispatch => {
-    console.log("checkAuthTimeOut called");
     setTimeout(() => {
       const refreshToken = localStorage.getItem("refreshToken");
       dispatch(getNewToken(refreshToken));
@@ -97,7 +106,11 @@ export const getNewToken = refreshToken => {
       })
       .catch(error => {
         console.log(error);
-        dispatch(authFail({ error: error }));
+        let errorMessage = error.message;
+        if (error.response) {
+          errorMessage = error.reponse.data.error.message;
+        }
+        dispatch(authFail({ error: errorMessage }));
       });
   };
 };

@@ -8,6 +8,7 @@ import SpendingInput from "../../components/SpendingInput/SpendingInput";
 import Modal from "../../components/UI/Modal/Modal";
 import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import Error from "../../components/UI/Error/Error";
 
 import * as actions from "../../store/actions/index";
 
@@ -26,6 +27,10 @@ class MainContent extends Component {
     this.setState({
       spendingInputValue: event.target.value
     });
+  };
+
+  onErrorConfirmed = () => {
+    this.props.onErrorConfirmation();
   };
 
   render() {
@@ -50,10 +55,10 @@ class MainContent extends Component {
     }
     if (this.props.error) {
       content = (
-        <p>
-          Es ist ein Fehler aufgetreten! Bei fehlender Internetverbindung später
-          erneut versuchen!
-        </p>
+        <Error
+          errorMessage={this.props.error}
+          errorConfirmHandler={this.onErrorConfirmed}
+        />
       );
     }
     if (!this.props.isAuthenticated) {
@@ -81,6 +86,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSetInitialState: idToken => dispatch(actions.onSetInitialState(idToken)),
+    onErrorConfirmation: () => dispatch(actions.confirmError()),
     toggleModal: () => dispatch(actions.toggleModal())
   };
 };

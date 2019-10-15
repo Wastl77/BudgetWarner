@@ -8,7 +8,7 @@ const initialState = {
   dailyAvailable: 0,
   showModal: false,
   loading: false,
-  error: false,
+  error: null,
   budget: {
     januar: 0,
     februar: 0,
@@ -50,13 +50,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: false
+        error: null
       };
     case actionTypes.FETCH_DATA_FAIL:
       return {
         ...state,
         loading: false,
-        error: true
+        error: action.payload.error
       };
     case actionTypes.ON_STORE_SPENDING_SUCCESS:
       return {
@@ -65,7 +65,7 @@ const reducer = (state = initialState, action) => {
         totalExpenditure: action.payload.totalExpenditure,
         dailyAvailable: action.payload.dailyAvailable,
         loading: false,
-        error: false
+        error: null
       };
     case actionTypes.TOGGLE_MODAL:
       return {
@@ -86,6 +86,11 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
+    case actionTypes.CONFIRM_ERROR:
+      return {
+        ...state,
+        error: null
+      };
     default:
       return state;
   }

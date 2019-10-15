@@ -25,8 +25,12 @@ export const onSetInitialState = idToken => {
         })
       )
       .catch(error => {
-        console.log(error);
-        dispatch(fetchDataFail());
+        console.log(error.response);
+        let errorMessage = error.message;
+        if (error.response !== undefined) {
+          errorMessage = "Bitte später erneut versuchen!";
+        }
+        dispatch(fetchDataFail({ error: errorMessage }));
       });
   };
 };
@@ -56,7 +60,11 @@ export const onStoreSpending = payload => {
       )
       .catch(error => {
         console.log(error);
-        dispatch(fetchDataFail(error));
+        let errorMessage = error.message;
+        if (error.response !== undefined) {
+          errorMessage = "Bitte später erneut versuchen!";
+        }
+        dispatch(fetchDataFail({ error: errorMessage }));
         dispatch(toggleModal());
       });
   };
@@ -94,9 +102,10 @@ export const setInitialState = payload => {
   };
 };
 
-export const fetchDataFail = () => {
+export const fetchDataFail = payload => {
   return {
-    type: actionTypes.FETCH_DATA_FAIL
+    type: actionTypes.FETCH_DATA_FAIL,
+    payload: payload
   };
 };
 
@@ -104,5 +113,11 @@ export const onBudgetInputChanged = payload => {
   return {
     type: actionTypes.ON_BUDGET_INPUT_CHANGED,
     payload: payload
+  };
+};
+
+export const confirmError = () => {
+  return {
+    type: actionTypes.CONFIRM_ERROR
   };
 };

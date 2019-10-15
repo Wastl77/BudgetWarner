@@ -5,6 +5,7 @@ import Aux from "../../hoc/Aux/Aux";
 import Button from "../../components/UI/Button/Button";
 import styles from "./index.module.css";
 import Radio from "../../components/UI/Radio/Radio";
+import Error from "../../components/UI/Error/Error";
 
 import * as helper from "../../helper/helper";
 import * as actions from "../../store/actions/index";
@@ -72,6 +73,10 @@ class SpendingDetailsForm extends Component {
     this.setState({
       selectedDate: event.target.value
     });
+  };
+
+  onErrorConfirmed = () => {
+    this.props.onErrorConfirmation();
   };
 
   render() {
@@ -155,10 +160,10 @@ class SpendingDetailsForm extends Component {
 
     if (this.props.error) {
       content = (
-        <p>
-          Es ist ein Fehler aufgetreten! Bei fehlender Internetverbindung später
-          erneut versuchen!
-        </p>
+        <Error
+          errorMessage={this.props.error}
+          errorConfirmedHandler={this.onErrorConfirmed}
+        />
       );
     }
 
@@ -173,13 +178,15 @@ const mapStateToProps = state => {
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
-    idToken: state.auth.idToken
+    idToken: state.auth.idToken,
+    error: state.main.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
+    onErrorConfirmation: () => dispatch(actions.confirmError()),
     toggleModal: () => dispatch(actions.toggleModal())
   };
 };
