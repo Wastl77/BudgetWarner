@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import * as actionTypes from "./actionTypes";
+import { onSetInitialState } from "./mainContent";
 
 const APIKey = process.env.REACT_APP_API_KEY;
 
@@ -32,6 +33,7 @@ export const onLogin = payload => {
           userId: response.data.localId
         };
         dispatch(authSuccess(authData));
+        dispatch(onSetInitialState(response.data.idToken));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
       .catch(error => {
@@ -102,6 +104,7 @@ export const getNewToken = refreshToken => {
           userId: response.data.user_id
         };
         dispatch(authSuccess(authData));
+        dispatch(onSetInitialState(response.data.id_token));
         dispatch(checkAuthTimeout(response.data.expires_in));
       })
       .catch(error => {
@@ -142,6 +145,7 @@ export const authCheckState = () => {
           userId: userId
         };
         dispatch(authSuccess(authData));
+        dispatch(onSetInitialState(token));
         dispatch(
           checkAuthTimeout(
             (expirationDate.getTime() - new Date().getTime()) / 1000

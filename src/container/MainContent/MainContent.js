@@ -17,13 +17,6 @@ class MainContent extends Component {
     spendingInputValue: 0
   };
 
-  componentDidMount() {
-    console.log("cDM aufgerufen auf MainContent");
-    if (this.props.isAuthenticated) {
-      this.props.onSetInitialState(this.props.idToken);
-    }
-  }
-
   spendingInputValueHandler = event => {
     this.setState({
       spendingInputValue: event.target.value
