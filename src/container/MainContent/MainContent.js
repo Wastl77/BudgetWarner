@@ -28,6 +28,10 @@ class MainContent extends Component {
   };
 
   render() {
+    const isInvalid =
+      parseFloat(this.state.spendingInputValue) <= 0 ||
+      this.state.spendingInputValue === "";
+
     let content = (
       <Aux>
         <Modal show={this.props.showModal} modalClosed={this.props.toggleModal}>
@@ -41,6 +45,7 @@ class MainContent extends Component {
         <SpendingInput
           applySpending={this.props.toggleModal}
           inputValue={this.spendingInputValueHandler}
+          isInvalid={isInvalid}
         />
       </Aux>
     );
