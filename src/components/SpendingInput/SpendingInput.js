@@ -6,7 +6,11 @@ import Button from "../UI/Button/Button";
 const spendingInput = props => (
   <div>
     <div className={styles.SpendingInput}>
-      <input type="number" onChange={props.inputValue}></input>
+      <input
+        type="number"
+        onChange={props.inputChanged}
+        value={props.inputValue}
+      ></input>
       <label>€</label>
     </div>
 

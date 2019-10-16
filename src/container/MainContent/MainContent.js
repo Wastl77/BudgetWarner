@@ -17,10 +17,12 @@ class MainContent extends Component {
     spendingInputValue: 0
   };
 
-  spendingInputValueHandler = event => {
-    this.setState({
-      spendingInputValue: event.target.value
-    });
+  spendingInputChangedHandler = event => {
+    const { value } = event.target;
+    this.props.onSpendingInputChanged({ value: value });
+    // this.setState({
+    //   spendingInputValue: event.target.value
+    // });
   };
 
   onErrorConfirmed = () => {
@@ -29,13 +31,13 @@ class MainContent extends Component {
 
   render() {
     const isInvalid =
-      parseFloat(this.state.spendingInputValue) <= 0 ||
-      this.state.spendingInputValue === "";
+      parseFloat(this.props.spendingInputValue) <= 0 ||
+      this.props.spendingInputValue === "";
 
     let content = (
       <Aux>
         <Modal show={this.props.showModal} modalClosed={this.props.toggleModal}>
-          <SpendingDetailsForm spendingValue={this.state.spendingInputValue} />
+          <SpendingDetailsForm spendingValue={this.props.spendingInputValue} />
         </Modal>
         <BudgetOutputs
           monthlyBudget={this.props.monthlyBudget}
@@ -44,7 +46,8 @@ class MainContent extends Component {
         />
         <SpendingInput
           applySpending={this.props.toggleModal}
-          inputValue={this.spendingInputValueHandler}
+          inputChanged={this.spendingInputChangedHandler}
+          inputValue={this.props.spendingInputValue}
           isInvalid={isInvalid}
         />
       </Aux>
@@ -74,6 +77,7 @@ const mapStateToProps = state => {
     totalExpenditure: state.main.totalExpenditure,
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
+    spendingInputValue: state.main.spendingInputValue,
     showModal: state.main.showModal,
     isAuthenticated: state.auth.idToken !== null,
     idToken: state.auth.idToken,
@@ -85,6 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSetInitialState: idToken => dispatch(actions.onSetInitialState(idToken)),
+    onSpendingInputChanged: payload =>
+      dispatch(actions.onSpendingInputChanged(payload)),
     onErrorConfirmation: () => dispatch(actions.confirmError()),
     toggleModal: () => dispatch(actions.toggleModal())
   };

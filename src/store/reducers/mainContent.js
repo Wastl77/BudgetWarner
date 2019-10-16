@@ -6,6 +6,7 @@ const initialState = {
   totalExpenditure: 0,
   totalAvailable: 0,
   dailyAvailable: 0,
+  spendingInputValue: "",
   showModal: false,
   loading: false,
   error: null,
@@ -64,6 +65,7 @@ const reducer = (state = initialState, action) => {
         totalAvailable: action.payload.totalAvailable,
         totalExpenditure: action.payload.totalExpenditure,
         dailyAvailable: action.payload.dailyAvailable,
+        spendingInputValue: "",
         loading: false,
         error: null
       };
@@ -84,6 +86,12 @@ const reducer = (state = initialState, action) => {
           ...state.budget,
           [action.payload.elementId]: action.payload.value
         }
+      };
+    }
+    case actionTypes.ON_SPENDING_INPUT_CHANGED: {
+      return {
+        ...state,
+        spendingInputValue: action.payload.value
       };
     }
     case actionTypes.CONFIRM_ERROR:
