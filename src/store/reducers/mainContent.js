@@ -77,7 +77,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TOGGLE_LOADING:
       return {
         ...state,
-        loading: !state.loading
+        loading: !state.loading,
+        spendingInputValue: ""
       };
     case actionTypes.ON_BUDGET_INPUT_CHANGED: {
       return {

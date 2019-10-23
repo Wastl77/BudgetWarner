@@ -24,6 +24,11 @@ class SpendingDetailsForm extends Component {
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpense = this.state.selectedDate;
+    let monthOfExpense = new Intl.DateTimeFormat("de-DE", {
+      month: "long"
+    }).format(new Date(dateOfExpense));
+    monthOfExpense =
+      monthOfExpense.charAt(0).toLowerCase() + monthOfExpense.slice(1);
     let userId = this.props.userId;
     let newTotalExpenditure = (
       parseFloat(this.props.totalExpenditure) + parseFloat(expense)
@@ -48,7 +53,8 @@ class SpendingDetailsForm extends Component {
       storageExpenseData,
       newTotalExpenditure,
       available,
-      idToken
+      idToken,
+      monthOfExpense
     ];
 
     this.props.onStoreSpending(payload);

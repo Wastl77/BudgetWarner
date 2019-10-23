@@ -65,8 +65,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onBudgetInputChanged: payload =>
       dispatch(actions.onBudgetInputChanged(payload)),
-    onStoreBudget: payload => dispatch(actions.onStoreBudget(payload)),
-    toggleLoading: () => dispatch(actions.toggleLoading())
+    onStoreBudget: payload => dispatch(actions.onStoreBudget(payload))
   };
 };
 

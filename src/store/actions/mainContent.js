@@ -6,20 +6,24 @@ export const onSetInitialState = idToken => {
   return dispatch => {
     dispatch(fetchDataStart());
 
+    let actualMonth = helper.getActualMonthString();
+
     axios
       .all([
         axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`),
-        axios.get(`/singleExpenses.json?auth=${idToken}`)
+        axios.get(`/singleExpenses/${actualMonth}.json?auth=${idToken}`)
       ])
       .then(
         axios.spread((budget, expenses) => {
-          let monthlyBudget = budget.data[helper.getActualMonthString()];
+          let monthlyBudget = budget.data[actualMonth];
           let totalExpenditure = 0;
-          const allExpenses = expenses.data;
-          Object.keys(allExpenses).forEach(key => {
-            totalExpenditure =
-              totalExpenditure + parseFloat(allExpenses[key].expenseValue);
-          });
+          if (expenses.data !== "undefined") {
+            const allExpenses = expenses.data;
+            Object.keys(allExpenses).forEach(key => {
+              totalExpenditure =
+                totalExpenditure + parseFloat(allExpenses[key].expenseValue);
+            });
+          }
           let payload = {
             totalExpenditure: totalExpenditure,
             budget: budget.data,
@@ -44,16 +48,21 @@ export const onStoreSpending = payload => {
   return dispatch => {
     dispatch(fetchDataStart());
 
+    let actualMonth = helper.getActualMonthString();
+
     axios
-      .post(`/singleExpenses.json?auth=${payload[3]}`, payload[0])
+      .post(`/singleExpenses/${payload[4]}.json?auth=${payload[3]}`, payload[0])
       .then(response => {
         const payloadSuccess = {
           totalAvailable: payload[2].totalAvailable,
-          totalExpenditure: payload[1].totalExpenditure,
+          totalExpenditure: payload[1],
           dailyAvailable: payload[2].dailyAvailable
         };
-        dispatch(onStoreSpendingSuccess(payloadSuccess));
+        if (actualMonth === payload[4]) {
+          dispatch(onStoreSpendingSuccess(payloadSuccess));
+        }
         dispatch(toggleModal());
+        dispatch(toggleLoading());
       })
       .catch(error => {
         console.log(error);
