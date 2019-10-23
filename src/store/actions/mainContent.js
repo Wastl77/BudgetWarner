@@ -8,13 +8,18 @@ export const onSetInitialState = idToken => {
 
     axios
       .all([
-        axios.get(`/expenditure/-Lq_T-H91dNZXUolCPon.json?auth=${idToken}`),
-        axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`)
+        axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`),
+        axios.get(`/singleExpenses.json?auth=${idToken}`)
       ])
       .then(
-        axios.spread((totalExp, budget) => {
+        axios.spread((budget, expenses) => {
           let monthlyBudget = budget.data[helper.getActualMonthString()];
-          let totalExpenditure = totalExp.data.totalExpenditure;
+          let totalExpenditure = 0;
+          const allExpenses = expenses.data;
+          Object.keys(allExpenses).forEach(key => {
+            totalExpenditure =
+              totalExpenditure + parseFloat(allExpenses[key].expenseValue);
+          });
           let payload = {
             totalExpenditure: totalExpenditure,
             budget: budget.data,
@@ -40,24 +45,16 @@ export const onStoreSpending = payload => {
     dispatch(fetchDataStart());
 
     axios
-      .all([
-        axios.post(`/singleExpenses.json?auth=${payload[3]}`, payload[0]),
-        axios.put(
-          `/expenditure/-Lq_T-H91dNZXUolCPon.json?auth=${payload[3]}`,
-          payload[1]
-        )
-      ])
-      .then(
-        axios.spread((response1, response2) => {
-          const payloadSuccess = {
-            totalAvailable: payload[2].totalAvailable,
-            totalExpenditure: payload[1].totalExpenditure,
-            dailyAvailable: payload[2].dailyAvailable
-          };
-          dispatch(onStoreSpendingSuccess(payloadSuccess));
-          dispatch(toggleModal());
-        })
-      )
+      .post(`/singleExpenses.json?auth=${payload[3]}`, payload[0])
+      .then(response => {
+        const payloadSuccess = {
+          totalAvailable: payload[2].totalAvailable,
+          totalExpenditure: payload[1].totalExpenditure,
+          dailyAvailable: payload[2].dailyAvailable
+        };
+        dispatch(onStoreSpendingSuccess(payloadSuccess));
+        dispatch(toggleModal());
+      })
       .catch(error => {
         console.log(error);
         let errorMessage = error.message;

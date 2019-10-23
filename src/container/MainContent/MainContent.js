@@ -20,9 +20,6 @@ class MainContent extends Component {
   spendingInputChangedHandler = event => {
     const { value } = event.target;
     this.props.onSpendingInputChanged({ value: value });
-    // this.setState({
-    //   spendingInputValue: event.target.value
-    // });
   };
 
   onErrorConfirmed = () => {
@@ -80,7 +77,6 @@ const mapStateToProps = state => {
     spendingInputValue: state.main.spendingInputValue,
     showModal: state.main.showModal,
     isAuthenticated: state.auth.idToken !== null,
-    idToken: state.auth.idToken,
     loading: state.main.loading,
     error: state.main.error
   };
@@ -88,7 +84,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetInitialState: idToken => dispatch(actions.onSetInitialState(idToken)),
     onSpendingInputChanged: payload =>
       dispatch(actions.onSpendingInputChanged(payload)),
     onErrorConfirmation: () => dispatch(actions.confirmError()),

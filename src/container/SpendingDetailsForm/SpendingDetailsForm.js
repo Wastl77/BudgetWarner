@@ -20,10 +20,11 @@ class SpendingDetailsForm extends Component {
   storeSpendingHandler = () => {
     // if value = 0 Check adden und Modal mit Fehlermeldung zeigen falls 0
 
-    let expense = this.props.spendingValue;
+    let expense = parseFloat(this.props.spendingValue).toFixed(2);
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpense = this.state.selectedDate;
+    let userId = this.props.userId;
     let newTotalExpenditure = (
       parseFloat(this.props.totalExpenditure) + parseFloat(expense)
     ).toFixed(2);
@@ -33,23 +34,19 @@ class SpendingDetailsForm extends Component {
     );
 
     const storageExpenseData = {
-      singleExpense: {
-        dateOfStorage: new Date(),
-        expenseValue: expense,
-        category: category,
-        paymentType: paymentType,
-        dateOfExpense: dateOfExpense
-      }
-    };
-    const storageTotalExpenditureData = {
-      totalExpenditure: newTotalExpenditure
+      dateOfStorage: new Date(),
+      expenseValue: expense,
+      category: category,
+      paymentType: paymentType,
+      dateOfExpense: dateOfExpense,
+      userId: userId
     };
 
     const idToken = this.props.idToken;
 
     const payload = [
       storageExpenseData,
-      storageTotalExpenditureData,
+      newTotalExpenditure,
       available,
       idToken
     ];
@@ -179,6 +176,7 @@ const mapStateToProps = state => {
     dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
     idToken: state.auth.idToken,
+    userId: state.auth.userId,
     error: state.main.error
   };
 };
