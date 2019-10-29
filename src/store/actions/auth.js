@@ -84,14 +84,12 @@ export const checkAuthTimeout = expirationTime => {
 
 export const getNewToken = refreshToken => {
   return dispatch => {
-    console.log("getNewToken called");
     const data = `grant_type=refresh_token&refresh_token=${refreshToken}`;
     axios
       .post(`https://securetoken.googleapis.com/v1/token?key=${APIKey}`, data, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
       })
       .then(response => {
-        console.log(response.data);
         const expirationDate = new Date(
           new Date().getTime() + response.data.expires_in * 1000
         );
