@@ -60,9 +60,11 @@ export const onStoreSpending = payload => {
         };
         if (actualMonth === payload[4]) {
           dispatch(onStoreSpendingSuccess(payloadSuccess));
+          dispatch(toggleLoading());
+        } else {
+          dispatch(toggleLoading());
         }
         dispatch(toggleModal());
-        dispatch(toggleLoading());
       })
       .catch(error => {
         console.log(error);

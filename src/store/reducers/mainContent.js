@@ -66,7 +66,6 @@ const reducer = (state = initialState, action) => {
         totalExpenditure: action.payload.totalExpenditure,
         dailyAvailable: action.payload.dailyAvailable,
         spendingInputValue: "",
-        loading: false,
         error: null
       };
     case actionTypes.TOGGLE_MODAL:
@@ -98,7 +97,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CONFIRM_ERROR:
       return {
         ...state,
-        error: null
+        error: null,
+        spendingInputValue: ""
       };
     default:
       return state;
