@@ -1,5 +1,5 @@
 export const calculateAvailable = (monthlyAvailable, totalExpense) => {
-  const totalAvailable = monthlyAvailable - totalExpense;
+  const totalAvailable = (monthlyAvailable - totalExpense).toFixed(2);
   const daysOfMonth = (month, year) => {
     if (month !== "2") {
       if (month === "9" || month === "4" || month === "6" || month === "11") {
