@@ -5,6 +5,7 @@
 .SpendingInput input {
   text-align: right;
   height: 1.75rem;
+  width: 60%;
   font-size: 1.5rem;
   outline: none;
   border: 1px solid black;
