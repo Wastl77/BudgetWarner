@@ -18,15 +18,15 @@ class SpendingDetailsForm extends Component {
   };
 
   storeSpendingHandler = () => {
-    // if value = 0 Check adden und Modal mit Fehlermeldung zeigen falls 0
-
     let expense = parseFloat(this.props.spendingValue).toFixed(2);
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
-    let dateOfExpense = this.state.selectedDate;
+    let dateOfExpense = new Intl.DateTimeFormat("de-DE").format(
+      new Date(this.state.selectedDate)
+    );
     let monthOfExpense = new Intl.DateTimeFormat("de-DE", {
       month: "long"
-    }).format(new Date(dateOfExpense));
+    }).format(new Date(this.state.selectedDate));
     monthOfExpense =
       monthOfExpense.charAt(0).toLowerCase() + monthOfExpense.slice(1);
     let userId = this.props.userId;
