@@ -9,6 +9,7 @@ import Layout from "./hoc/Layout/Layout";
 import BudgetInputForm from "./container/BudgetInputForm/BudgetInputForm";
 import Auth from "./container/Auth/Auth";
 import Logout from "./container/Auth/Logout/Logout";
+import ExpenseOutput from "./components/ExpenseOutput/ExpenseOutput";
 
 import * as actions from "./store/actions/index";
 
@@ -30,6 +31,7 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
+          <Route path="/expenseOutput" component={ExpenseOutput} />
           <Route path="/" exact component={MainContent} />
           <Redirect to="/" />
         </Switch>
@@ -40,6 +42,7 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
+          <Route path="/expenseOutput" component={ExpenseOutput} />
           <Route path="/admin" component={BudgetInputForm} />
           <Route path="/" exact component={MainContent} />
           <Redirect to="/" />

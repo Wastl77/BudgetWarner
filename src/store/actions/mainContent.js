@@ -11,23 +11,26 @@ export const onSetInitialState = idToken => {
     axios
       .all([
         axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`),
-        axios.get(`/singleExpenses/${actualMonth}.json?auth=${idToken}`)
+        axios.get(`/singleExpenses.json?auth=${idToken}`)
       ])
       .then(
         axios.spread((budget, expenses) => {
           let monthlyBudget = budget.data[actualMonth];
           let totalExpenditure = 0;
           if (expenses.data !== "undefined") {
-            const allExpenses = expenses.data;
-            Object.keys(allExpenses).forEach(key => {
+            const allActualMonthExpenses = expenses.data[actualMonth];
+            Object.keys(allActualMonthExpenses).forEach(key => {
               totalExpenditure =
-                totalExpenditure + parseFloat(allExpenses[key].expenseValue);
+                totalExpenditure +
+                parseFloat(allActualMonthExpenses[key].expenseValue);
             });
           }
+          const allExpenses = expenses.data;
           let payload = {
             totalExpenditure: totalExpenditure,
             budget: budget.data,
-            monthlyBudget: monthlyBudget
+            monthlyBudget: monthlyBudget,
+            allExpenses: allExpenses
           };
 
           dispatch(setInitialState(payload));

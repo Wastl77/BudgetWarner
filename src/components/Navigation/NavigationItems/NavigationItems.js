@@ -8,6 +8,9 @@ const navigationItems = props => (
     <NavigationItem link="/" exact>
       Startseite
     </NavigationItem>
+    {props.isAuthenticated ? (
+      <NavigationItem link="/expenseOutput">Einzelausgaben</NavigationItem>
+    ) : null}
     {props.isAdmin ? (
       <NavigationItem link="/admin">Admin</NavigationItem>
     ) : null}
