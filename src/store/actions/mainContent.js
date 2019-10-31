@@ -11,33 +11,32 @@ export const onSetInitialState = idToken => {
     axios
       .all([
         axios.get(`/budget/-Lq_SMZGI0D_kJEoFtPN.json?auth=${idToken}`),
-        axios.get(`/singleExpenses.json?auth=${idToken}`)
+        axios.get(
+          `/singleExpenses.json?auth=${idToken}&orderBy="month"&equalTo="${actualMonth}"`
+        )
       ])
       .then(
         axios.spread((budget, expenses) => {
           let monthlyBudget = budget.data[actualMonth];
           let totalExpenditure = 0;
 
-          let allUndefined = true;
-          Object.values(expenses.data).forEach(item => {
-            allUndefined = item === "undefined" && allUndefined;
-            return allUndefined;
-          });
-
-          if (allUndefined !== true) {
-            const allActualMonthExpenses = expenses.data[actualMonth];
-            Object.keys(allActualMonthExpenses).forEach(key => {
-              totalExpenditure =
-                totalExpenditure +
-                parseFloat(allActualMonthExpenses[key].expenseValue);
+          const allExpenses = [];
+          let key;
+          for (key in expenses.data) {
+            allExpenses.push({
+              ...expenses.data[key],
+              id: key
             });
           }
-          const allExpenses = expenses.data;
+
+          allExpenses.forEach(exp => {
+            totalExpenditure = totalExpenditure + parseFloat(exp.expenseValue);
+          });
+
           let payload = {
             totalExpenditure: totalExpenditure,
             budget: budget.data,
-            monthlyBudget: monthlyBudget,
-            allExpenses: allExpenses
+            monthlyBudget: monthlyBudget
           };
 
           dispatch(setInitialState(payload));
@@ -61,7 +60,7 @@ export const onStoreSpending = payload => {
     let actualMonth = helper.getActualMonthString();
 
     axios
-      .post(`/singleExpenses/${payload[4]}.json?auth=${payload[3]}`, payload[0])
+      .post(`/singleExpenses.json?auth=${payload[3]}`, payload[0])
       .then(response => {
         const payloadSuccess = {
           totalAvailable: payload[2].totalAvailable,

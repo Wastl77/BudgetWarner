@@ -1,26 +1,52 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import months from "../../assets/data/months";
+import * as helper from "../../helper/helper";
 
 const ExpenseOutput = props => {
-  const [selectValue, setSelectValue] = useState("januar");
+  const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
+  const [expenses, setExpenses] = useState([]);
+
+  useEffect(() => {
+    const fetchExpenses = () => {
+      let allExpenses = [];
+      axios
+        .get(
+          `/singleExpenses.json?auth=${props.idToken}&orderBy="month"&equalTo="${selectValue}"`
+        )
+        .then(res => {
+          let key;
+          for (key in res.data) {
+            allExpenses.push({
+              ...res.data[key],
+              id: key
+            });
+          }
+        })
+        .then(result => {
+          setExpenses(allExpenses);
+        });
+    };
+
+    fetchExpenses();
+  }, [selectValue, props.idToken]);
+
+  const onMonthSelectChange = event => {
+    setSelectValue(event.target.value);
+  };
 
   let output;
-  let expenseArray;
 
-  if (props.allExpenses[selectValue] !== "undefined") {
-    expenseArray = Object.keys(props.allExpenses[selectValue]).map(exp => {
-      props.allExpenses[selectValue][exp].id = exp;
-      return props.allExpenses[selectValue][exp];
-    });
-    output = expenseArray.map(expense => {
+  if (expenses !== []) {
+    output = expenses.map(exp => {
       return (
         <SingleExpenseOutput
-          date={expense.dateOfExpense}
-          value={expense.expenseValue}
-          id={expense.id}
-          key={expense.id}
+          date={exp.dateOfExpense}
+          value={exp.expenseValue}
+          id={exp.id}
+          key={exp.id}
         />
       );
     });
@@ -34,7 +60,8 @@ const ExpenseOutput = props => {
       <label htmlFor="monthSelect">Monat wählen: </label>
       <select
         id="monthSelect"
-        onChange={event => setSelectValue(event.target.value)}
+        defaultValue={selectValue}
+        onChange={onMonthSelectChange}
       >
         {months.map(month => (
           <option value={month} key={month}>
@@ -58,7 +85,7 @@ const SingleExpenseOutput = props => {
 
 const mapStateToProps = state => {
   return {
-    allExpenses: state.main.allExpenses
+    idToken: state.auth.idToken
   };
 };
 

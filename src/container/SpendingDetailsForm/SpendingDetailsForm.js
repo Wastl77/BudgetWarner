@@ -44,6 +44,7 @@ class SpendingDetailsForm extends Component {
       category: category,
       paymentType: paymentType,
       dateOfExpense: dateOfExpense,
+      month: monthOfExpense,
       userId: userId
     };
 

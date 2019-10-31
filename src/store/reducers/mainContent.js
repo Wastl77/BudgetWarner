@@ -23,8 +23,7 @@ const initialState = {
     oktober: 0,
     november: 0,
     dezember: 0
-  },
-  allExpenses: {}
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -44,7 +43,6 @@ const reducer = (state = initialState, action) => {
         totalExpenditure: totalExpenditure,
         totalAvailable: available.totalAvailable,
         dailyAvailable: available.dailyAvailable,
-        allExpenses: action.payload.allExpenses,
         budget: budget,
         loading: false
       };
