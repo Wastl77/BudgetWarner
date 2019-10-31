@@ -17,7 +17,14 @@ export const onSetInitialState = idToken => {
         axios.spread((budget, expenses) => {
           let monthlyBudget = budget.data[actualMonth];
           let totalExpenditure = 0;
-          if (expenses.data !== "undefined") {
+
+          let allUndefined = true;
+          Object.values(expenses.data).forEach(item => {
+            allUndefined = item === "undefined" && allUndefined;
+            return allUndefined;
+          });
+
+          if (allUndefined !== true) {
             const allActualMonthExpenses = expenses.data[actualMonth];
             Object.keys(allActualMonthExpenses).forEach(key => {
               totalExpenditure =
@@ -68,6 +75,7 @@ export const onStoreSpending = payload => {
           dispatch(toggleLoading());
         }
         dispatch(toggleModal());
+        dispatch(onSetInitialState(payload[3]));
       })
       .catch(error => {
         console.log(error);

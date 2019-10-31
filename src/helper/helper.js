@@ -18,6 +18,11 @@ export const calculateAvailable = (monthlyAvailable, totalExpense) => {
   let day = date.getDate();
   let totalDays = daysOfMonth(month, year);
   let daysLeft = totalDays - day;
+
+  if (daysLeft <= 1) {
+    daysLeft = 1;
+  }
+
   const dailyAvailable = (totalAvailable / daysLeft).toFixed(2);
 
   return {
