@@ -4,6 +4,7 @@ import axios from "axios";
 
 import months from "../../assets/data/months";
 import * as helper from "../../helper/helper";
+import styles from "./ExpenseOutput.module.css";
 
 const ExpenseOutput = props => {
   const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
@@ -26,6 +27,8 @@ const ExpenseOutput = props => {
           }
         })
         .then(result => {
+          helper.sortArray(allExpenses);
+          allExpenses.reverse();
           setExpenses(allExpenses);
         });
     };
@@ -39,7 +42,7 @@ const ExpenseOutput = props => {
 
   let output;
 
-  if (expenses !== []) {
+  if (expenses.length) {
     output = expenses.map(exp => {
       return (
         <SingleExpenseOutput
@@ -56,29 +59,33 @@ const ExpenseOutput = props => {
 
   return (
     <Fragment>
+      <div className={styles.SelectField}>
+        <label htmlFor="monthSelect" className={styles.Label}>
+          Monat wählen:{" "}
+        </label>
+        <select
+          id="monthSelect"
+          defaultValue={selectValue}
+          onChange={onMonthSelectChange}
+          className={styles.Select}
+        >
+          {months.map(month => (
+            <option value={month} key={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+      </div>
       {output}
-      <label htmlFor="monthSelect">Monat wählen: </label>
-      <select
-        id="monthSelect"
-        defaultValue={selectValue}
-        onChange={onMonthSelectChange}
-      >
-        {months.map(month => (
-          <option value={month} key={month}>
-            {month}
-          </option>
-        ))}
-      </select>
     </Fragment>
   );
 };
 
 const SingleExpenseOutput = props => {
   return (
-    <div onClick={() => console.log(props.id)}>
+    <div onClick={() => console.log(props.id)} className={styles.ExpenseOutput}>
       <p>{props.date}</p>
-      <p>{props.value}</p>
-      <p>{props.id}</p>
+      <p>{props.value} €</p>
     </div>
   );
 };

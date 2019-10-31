@@ -1,0 +1,33 @@
+.Label {
+  font-size: 1.5rem;
+}
+
+.Select {
+  height: 1.75rem;
+  text-align: center;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.SelectField {
+  margin: 1rem auto;
+  width: 100%;
+}
+
+.ExpenseOutput {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto 1rem auto;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: 80%;
+  text-align: center;
+}
+
+.ExpenseOutput p {
+  display: inline-block;
+}

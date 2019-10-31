@@ -38,3 +38,11 @@ export const getActualMonthString = () => {
   );
   return monthString.charAt(0).toLowerCase() + monthString.slice(1);
 };
+
+export const sortArray = array => {
+  array.sort((a, b) => {
+    let dateA = new Date(a.dateOfExpenseISO),
+      dateB = new Date(b.dateOfExpenseISO);
+    return dateA - dateB;
+  });
+};

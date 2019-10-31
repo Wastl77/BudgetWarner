@@ -21,6 +21,7 @@ class SpendingDetailsForm extends Component {
     let expense = parseFloat(this.props.spendingValue).toFixed(2);
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
+    let dateOfExpenseISO = new Date(this.state.selectedDate);
     let dateOfExpense = new Intl.DateTimeFormat("de-DE").format(
       new Date(this.state.selectedDate)
     );
@@ -44,6 +45,7 @@ class SpendingDetailsForm extends Component {
       category: category,
       paymentType: paymentType,
       dateOfExpense: dateOfExpense,
+      dateOfExpenseISO: dateOfExpenseISO,
       month: monthOfExpense,
       userId: userId
     };
