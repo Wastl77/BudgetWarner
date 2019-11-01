@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
+import Button from "../UI/Button/Button";
+
 import months from "../../assets/data/months";
 import * as helper from "../../helper/helper";
 import styles from "./ExpenseOutput.module.css";
@@ -48,6 +50,8 @@ const ExpenseOutput = props => {
         <SingleExpenseOutput
           date={exp.dateOfExpense}
           value={exp.expenseValue}
+          category={exp.category}
+          paymentType={exp.paymentType}
           id={exp.id}
           key={exp.id}
         />
@@ -82,10 +86,28 @@ const ExpenseOutput = props => {
 };
 
 const SingleExpenseOutput = props => {
+  const [detailsVisible, setDetailsVisible] = useState(false);
+
+  const onDeleteHandler = id => {
+    console.log(id);
+  };
+
   return (
-    <div onClick={() => console.log(props.id)} className={styles.ExpenseOutput}>
+    <div
+      onClick={() => setDetailsVisible(!detailsVisible)}
+      className={styles.ExpenseOutput}
+    >
       <p>{props.date}</p>
       <p>{props.value} €</p>
+      {detailsVisible ? (
+        <Fragment>
+          <p>{props.category}</p>
+          <p>{props.paymentType}</p>
+          <Button btnType={"Cancel"} clicked={() => onDeleteHandler(props.id)}>
+            Löschen
+          </Button>
+        </Fragment>
+      ) : null}
     </div>
   );
 };

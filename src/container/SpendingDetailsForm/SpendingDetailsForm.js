@@ -13,7 +13,7 @@ import * as actions from "../../store/actions/index";
 class SpendingDetailsForm extends Component {
   state = {
     selectedCategory: "keine",
-    selectedPaymentType: "bar",
+    selectedPaymentType: "Bar",
     selectedDate: new Date().toLocaleDateString("en-CA")
   };
 
@@ -129,14 +129,14 @@ class SpendingDetailsForm extends Component {
 
           <Radio
             label="Bar"
-            value="bar"
+            value="Bar"
             name="paymentType"
             currentlySelected={this.state.selectedPaymentType}
             onChange={this.handlePaymentTypeChange}
           />
           <Radio
             label="EC-Karte"
-            value="ec-karte"
+            value="EC-Karte"
             name="paymentType"
             currentlySelected={this.state.selectedPaymentType}
             onChange={this.handlePaymentTypeChange}
