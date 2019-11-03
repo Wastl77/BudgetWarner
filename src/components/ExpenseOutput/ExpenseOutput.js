@@ -52,6 +52,7 @@ const ExpenseOutput = props => {
           value={exp.expenseValue}
           category={exp.category}
           paymentType={exp.paymentType}
+          note={exp.note}
           id={exp.id}
           key={exp.id}
         />
@@ -103,6 +104,7 @@ const SingleExpenseOutput = props => {
         <Fragment>
           <p>{props.category}</p>
           <p>{props.paymentType}</p>
+          {props.note ? <span>{props.note}</span> : null}
           <Button btnType={"Cancel"} clicked={() => onDeleteHandler(props.id)}>
             Löschen
           </Button>

@@ -14,7 +14,8 @@ class SpendingDetailsForm extends Component {
   state = {
     selectedCategory: "keine",
     selectedPaymentType: "Bar",
-    selectedDate: new Date().toLocaleDateString("en-CA")
+    selectedDate: new Date().toLocaleDateString("en-CA"),
+    note: ""
   };
 
   storeSpendingHandler = () => {
@@ -47,7 +48,8 @@ class SpendingDetailsForm extends Component {
       dateOfExpense: dateOfExpense,
       dateOfExpenseISO: dateOfExpenseISO,
       month: monthOfExpense,
-      userId: userId
+      userId: userId,
+      note: this.state.note
     };
 
     const idToken = this.props.idToken;
@@ -78,6 +80,12 @@ class SpendingDetailsForm extends Component {
   handleDateChange = event => {
     this.setState({
       selectedDate: event.target.value
+    });
+  };
+
+  handleNoteChange = event => {
+    this.setState({
+      note: event.target.value
     });
   };
 
@@ -152,6 +160,17 @@ class SpendingDetailsForm extends Component {
             onChange={this.handleDateChange}
             className={styles.input}
           />
+        </div>
+
+        <div>
+          <h2 className={styles.header}>Notiz</h2>
+
+          <textarea
+            style={{ width: "80%" }}
+            value={this.state.note}
+            onChange={this.handleNoteChange}
+            className={styles.input}
+          ></textarea>
         </div>
 
         <Button btnType="Cancel" clicked={this.props.toggleModal}>

@@ -33,3 +33,8 @@
   width: 50%;
   text-transform: capitalize;
 }
+
+.ExpenseOutput span {
+  width: 85%;
+  margin: 16px 0;
+}
