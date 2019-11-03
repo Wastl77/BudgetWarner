@@ -2,11 +2,12 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import Button from "../UI/Button/Button";
+import SingleExpenseOutput from "./SingleExpenseOutput";
 
 import months from "../../assets/data/months";
 import * as helper from "../../helper/helper";
 import styles from "./ExpenseOutput.module.css";
+import * as actions from "../../store/actions/index";
 
 const ExpenseOutput = props => {
   const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
@@ -42,6 +43,15 @@ const ExpenseOutput = props => {
     setSelectValue(event.target.value);
   };
 
+  const onDeleteSpending = id => {
+    axios
+      .delete(`/singleExpenses/${id}.json?auth=${props.idToken}`)
+      .then(res => {
+        props.onSetInitialState(props.idToken);
+        props.history.push("/");
+      });
+  };
+
   let output;
 
   if (expenses.length) {
@@ -55,6 +65,7 @@ const ExpenseOutput = props => {
           note={exp.note}
           id={exp.id}
           key={exp.id}
+          clicked={() => onDeleteSpending(exp.id)}
         />
       );
     });
@@ -86,38 +97,19 @@ const ExpenseOutput = props => {
   );
 };
 
-const SingleExpenseOutput = props => {
-  const [detailsVisible, setDetailsVisible] = useState(false);
-
-  const onDeleteHandler = id => {
-    console.log(id);
-  };
-
-  return (
-    <div
-      onClick={() => setDetailsVisible(!detailsVisible)}
-      className={styles.ExpenseOutput}
-    >
-      <p>{props.date}</p>
-      <p>{props.value} €</p>
-      {detailsVisible ? (
-        <Fragment>
-          <p>{props.category}</p>
-          <p>{props.paymentType}</p>
-          {props.note ? <span>{props.note}</span> : null}
-          <Button btnType={"Cancel"} clicked={() => onDeleteHandler(props.id)}>
-            Löschen
-          </Button>
-        </Fragment>
-      ) : null}
-    </div>
-  );
-};
-
 const mapStateToProps = state => {
   return {
     idToken: state.auth.idToken
   };
 };
 
-export default connect(mapStateToProps)(ExpenseOutput);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetInitialState: payload => dispatch(actions.onSetInitialState(payload))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ExpenseOutput);
