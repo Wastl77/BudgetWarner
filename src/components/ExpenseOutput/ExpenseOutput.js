@@ -56,14 +56,11 @@ const ExpenseOutput = props => {
 
   const expensesPerPage = 20;
   const indexOfLastExpense = currentPage * expensesPerPage;
-  console.log(indexOfLastExpense);
   const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
-  console.log(indexOfFirstExpense);
   const currentExpenses = expenses.slice(
     indexOfFirstExpense,
     indexOfLastExpense
   );
-  console.log(currentExpenses);
   const lastPage = Math.ceil(expenses.length / expensesPerPage);
 
   const pageDown = () => {
