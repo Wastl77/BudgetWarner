@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import SingleExpenseOutput from "./SingleExpenseOutput";
+import Button from "../UI/Button/Button";
 
 import months from "../../assets/data/months";
 import * as helper from "../../helper/helper";
@@ -12,6 +13,7 @@ import * as actions from "../../store/actions/index";
 const ExpenseOutput = props => {
   const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
   const [expenses, setExpenses] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchExpenses = () => {
@@ -52,10 +54,32 @@ const ExpenseOutput = props => {
       });
   };
 
+  const expensesPerPage = 20;
+  const indexOfLastExpense = currentPage * expensesPerPage;
+  console.log(indexOfLastExpense);
+  const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
+  console.log(indexOfFirstExpense);
+  const currentExpenses = expenses.slice(
+    indexOfFirstExpense,
+    indexOfLastExpense
+  );
+  console.log(currentExpenses);
+  const lastPage = Math.ceil(expenses.length / expensesPerPage);
+
+  const pageDown = () => {
+    let newPage = currentPage - 1;
+    setCurrentPage(newPage);
+  };
+
+  const pageUp = () => {
+    let newPage = currentPage + 1;
+    setCurrentPage(newPage);
+  };
+
   let output;
 
   if (expenses.length) {
-    output = expenses.map(exp => {
+    output = currentExpenses.map(exp => {
       return (
         <SingleExpenseOutput
           date={exp.dateOfExpense}
@@ -93,6 +117,12 @@ const ExpenseOutput = props => {
         </select>
       </div>
       {output}
+      <Button clicked={pageDown} isDisabled={currentPage <= 1}>
+        &#x2190;
+      </Button>
+      <Button clicked={pageUp} isDisabled={currentPage >= lastPage}>
+        &#x2192;
+      </Button>
     </Fragment>
   );
 };
