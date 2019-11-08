@@ -14,7 +14,9 @@ const SingleExpenseOutput = props => {
       className={styles.ExpenseOutput}
     >
       <p>{props.date}</p>
-      <p>{props.value} €</p>
+      <p style={{ color: props.type === "taking" ? "black" : "red" }}>
+        {props.value} €
+      </p>
       {detailsVisible ? (
         <Fragment>
           <p>{props.category}</p>

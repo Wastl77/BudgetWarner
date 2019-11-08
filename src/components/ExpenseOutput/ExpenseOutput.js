@@ -85,6 +85,7 @@ const ExpenseOutput = props => {
           paymentType={exp.paymentType}
           note={exp.note}
           id={exp.id}
+          type={exp.type}
           key={exp.id}
           clicked={() => onDeleteSpending(exp.id)}
         />
