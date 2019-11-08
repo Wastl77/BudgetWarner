@@ -14,6 +14,7 @@ class SpendingDetailsForm extends Component {
   state = {
     selectedCategory: "keine",
     selectedPaymentType: "Bar",
+    type: "spending",
     selectedDate: new Date().toLocaleDateString("en-CA"),
     note: ""
   };
@@ -32,9 +33,16 @@ class SpendingDetailsForm extends Component {
     monthOfExpense =
       monthOfExpense.charAt(0).toLowerCase() + monthOfExpense.slice(1);
     let userId = this.props.userId;
-    let newTotalExpenditure = (
-      parseFloat(this.props.totalExpenditure) + parseFloat(expense)
-    ).toFixed(2);
+    let newTotalExpenditure;
+    if (this.state.type === "spending") {
+      newTotalExpenditure =
+        parseFloat(this.props.totalExpenditure) +
+        parseFloat(expense).toFixed(2);
+    } else {
+      newTotalExpenditure =
+        parseFloat(this.props.totalExpenditure) -
+        parseFloat(expense).toFixed(2);
+    }
     let available = helper.calculateAvailable(
       +this.props.monthlyBudget,
       newTotalExpenditure
@@ -49,7 +57,8 @@ class SpendingDetailsForm extends Component {
       dateOfExpenseISO: dateOfExpenseISO,
       month: monthOfExpense,
       userId: userId,
-      note: this.state.note
+      note: this.state.note,
+      type: this.state.type
     };
 
     const idToken = this.props.idToken;
@@ -74,6 +83,12 @@ class SpendingDetailsForm extends Component {
   handlePaymentTypeChange = event => {
     this.setState({
       selectedPaymentType: event.target.value
+    });
+  };
+
+  handleTypeChange = event => {
+    this.setState({
+      type: event.target.value
     });
   };
 
@@ -148,6 +163,25 @@ class SpendingDetailsForm extends Component {
             name="paymentType"
             currentlySelected={this.state.selectedPaymentType}
             onChange={this.handlePaymentTypeChange}
+          />
+        </div>
+
+        <div>
+          <h2 className={styles.header}>Typ</h2>
+
+          <Radio
+            label="Ausgabe"
+            value="spending"
+            name="type"
+            currentlySelected={this.state.type}
+            onChange={this.handleTypeChange}
+          />
+          <Radio
+            label="Einnahme"
+            value="taking"
+            name="type"
+            currentlySelected={this.state.type}
+            onChange={this.handleTypeChange}
           />
         </div>
 

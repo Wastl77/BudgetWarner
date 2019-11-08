@@ -30,7 +30,13 @@ export const onSetInitialState = idToken => {
           }
 
           allExpenses.forEach(exp => {
-            totalExpenditure = totalExpenditure + parseFloat(exp.expenseValue);
+            if (exp.type === "spending") {
+              totalExpenditure =
+                totalExpenditure + parseFloat(exp.expenseValue);
+            } else {
+              totalExpenditure =
+                totalExpenditure - parseFloat(exp.expenseValue);
+            }
           });
 
           let payload = {
