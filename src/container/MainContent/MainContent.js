@@ -40,6 +40,10 @@ class MainContent extends Component {
           monthlyBudget={this.props.monthlyBudget}
           totalAvailable={this.props.totalAvailable}
           dailyAvailable={this.props.dailyAvailable}
+          fuelBudget={this.props.fuelBudget}
+          usedFromFuelBudget={this.props.totalExpenditureFuel}
+          supermarketBudget={this.props.supermarketBudget}
+          usedFromSupermarketBudget={this.props.totalExpenditureSupermarket}
         />
         <SpendingInput
           applySpending={this.props.toggleModal}
@@ -72,6 +76,10 @@ const mapStateToProps = state => {
   return {
     monthlyBudget: state.main.monthlyBudget,
     totalExpenditure: state.main.totalExpenditure,
+    totalExpenditureFuel: state.main.totalExpenditureFuel,
+    totalExpenditureSupermarket: state.main.totalExpenditureSupermarket,
+    supermarketBudget: state.main.budget.supermarket,
+    fuelBudget: state.main.budget.fuel,
     totalAvailable: state.main.totalAvailable,
     dailyAvailable: state.main.dailyAvailable,
     spendingInputValue: state.main.spendingInputValue,

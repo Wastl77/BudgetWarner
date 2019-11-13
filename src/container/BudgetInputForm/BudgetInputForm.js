@@ -42,6 +42,22 @@ class BudgetInputForm extends Component {
             </p>
           </div>
         ))}
+        <div className={styles.BudgetInput}>
+          <label>Tanken</label>
+          <input
+            type="number"
+            value={this.props.budget["fuel"]}
+            onChange={event => this.inputChangedHandler(event, "fuel")}
+          />
+          <p className={styles.BudgetInputEuroLabel}>€</p>
+          <label style={{ "margin-top": "10px" }}>Supermarkt/Drogerie</label>
+          <input
+            type="number"
+            value={this.props.budget["supermarket"]}
+            onChange={event => this.inputChangedHandler(event, "supermarket")}
+          />
+          <p className={styles.BudgetInputEuroLabel}>€</p>
+        </div>
         <Button btnType="Continue">Übernehmen</Button>
       </form>
     );

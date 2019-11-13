@@ -19,6 +19,8 @@ export const onSetInitialState = idToken => {
         axios.spread((budget, expenses) => {
           let monthlyBudget = budget.data[actualMonth];
           let totalExpenditure = 0;
+          let totalExpenditureFuel = 0;
+          let totalExpenditureSupermarket = 0;
 
           const allExpenses = [];
           let key;
@@ -39,8 +41,24 @@ export const onSetInitialState = idToken => {
             }
           });
 
+          allExpenses.forEach(exp => {
+            if (exp.category === "supermarkt" || exp.category === "drogerie") {
+              totalExpenditureSupermarket =
+                totalExpenditureSupermarket + parseFloat(exp.expenseValue);
+            }
+          });
+
+          allExpenses.forEach(exp => {
+            if (exp.category === "tanken") {
+              totalExpenditureFuel =
+                totalExpenditureFuel + parseFloat(exp.expenseValue);
+            }
+          });
+
           let payload = {
             totalExpenditure: totalExpenditure,
+            totalExpenditureSupermarket: totalExpenditureSupermarket,
+            totalExpenditureFuel: totalExpenditureFuel,
             budget: budget.data,
             monthlyBudget: monthlyBudget
           };

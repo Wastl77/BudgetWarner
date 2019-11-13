@@ -4,6 +4,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   monthlyBudget: 0,
   totalExpenditure: 0,
+  totalExpenditureFuel: 0,
+  totalExpenditureSupermarket: 0,
   totalAvailable: 0,
   dailyAvailable: 0,
   spendingInputValue: "",
@@ -22,7 +24,9 @@ const initialState = {
     september: 0,
     oktober: 0,
     november: 0,
-    dezember: 0
+    dezember: 0,
+    fuel: 0,
+    supermarket: 0
   }
 };
 
@@ -30,6 +34,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_INITIAL_STATE: {
       const totalExpenditure = (+action.payload.totalExpenditure).toFixed(2);
+      const totalExpenditureFuel = +action.payload.totalExpenditureFuel.toFixed(
+        2
+      );
+      const totalExpenditureSupermarket = +action.payload.totalExpenditureSupermarket.toFixed(
+        2
+      );
       const monthlyBudget = (+action.payload.monthlyBudget).toFixed(2);
       const budget = action.payload.budget;
       const available = helper.calculateAvailable(
@@ -41,6 +51,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         monthlyBudget: monthlyBudget,
         totalExpenditure: totalExpenditure,
+        totalExpenditureSupermarket: totalExpenditureSupermarket,
+        totalExpenditureFuel: totalExpenditureFuel,
         totalAvailable: available.totalAvailable,
         dailyAvailable: available.dailyAvailable,
         budget: budget,
