@@ -6,6 +6,7 @@ import Button from "../../components/UI/Button/Button";
 import styles from "./index.module.css";
 import Radio from "../../components/UI/Radio/Radio";
 import Error from "../../components/UI/Error/Error";
+import SpendingInput from "../../components/SpendingInput/SpendingInput";
 
 import * as helper from "../../helper/helper";
 import * as actions from "../../store/actions/index";
@@ -20,7 +21,7 @@ class SpendingDetailsForm extends Component {
   };
 
   storeSpendingHandler = () => {
-    let expense = parseFloat(this.props.spendingValue).toFixed(2);
+    let expense = parseFloat(this.props.spendingInputValue).toFixed(2);
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpenseISO = new Date(this.state.selectedDate);
@@ -74,6 +75,11 @@ class SpendingDetailsForm extends Component {
     this.props.onStoreSpending(payload);
   };
 
+  spendingInputChangedHandler = event => {
+    const { value } = event.target;
+    this.props.onSpendingInputChanged({ value: value });
+  };
+
   handleCategoryChange = event => {
     this.setState({
       selectedCategory: event.target.value
@@ -109,9 +115,19 @@ class SpendingDetailsForm extends Component {
   };
 
   render() {
+    const isInvalid =
+      parseFloat(this.props.spendingInputValue) <= 0 ||
+      this.props.spendingInputValue === "";
     let content = (
       <Aux>
         <div>
+          <h2 className={styles.header}>Ausgabe</h2>
+
+          <SpendingInput
+            inputChanged={this.spendingInputChangedHandler}
+            inputValue={this.props.spendingInputValue}
+          />
+
           <h2 className={styles.header}>Kategorie</h2>
 
           <Radio
@@ -211,7 +227,11 @@ class SpendingDetailsForm extends Component {
           Abbrechen
         </Button>
 
-        <Button btnType="Continue" clicked={this.storeSpendingHandler}>
+        <Button
+          btnType="Continue"
+          clicked={this.storeSpendingHandler}
+          isInvalid={isInvalid}
+        >
           Übernehmen
         </Button>
       </Aux>
@@ -239,12 +259,15 @@ const mapStateToProps = state => {
     showModal: state.main.showModal,
     idToken: state.auth.idToken,
     userId: state.auth.userId,
-    error: state.main.error
+    error: state.main.error,
+    spendingInputValue: state.main.spendingInputValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    onSpendingInputChanged: payload =>
+      dispatch(actions.onSpendingInputChanged(payload)),
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
     onErrorConfirmation: () => dispatch(actions.confirmError()),
     toggleModal: () => dispatch(actions.toggleModal())
