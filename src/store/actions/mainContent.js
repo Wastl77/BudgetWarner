@@ -21,6 +21,7 @@ export const onSetInitialState = idToken => {
           let totalExpenditure = 0;
           let totalExpenditureFuel = 0;
           let totalExpenditureSupermarket = 0;
+          let totalExpenditureFreeBudget = 0;
 
           const allExpenses = [];
           let key;
@@ -55,12 +56,17 @@ export const onSetInitialState = idToken => {
             }
           });
 
+          totalExpenditureFreeBudget =
+            totalExpenditure -
+            (totalExpenditureFuel + totalExpenditureSupermarket);
+
           let payload = {
             totalExpenditure: totalExpenditure,
             totalExpenditureSupermarket: totalExpenditureSupermarket,
             totalExpenditureFuel: totalExpenditureFuel,
             budget: budget.data,
-            monthlyBudget: monthlyBudget
+            monthlyBudget: monthlyBudget,
+            totalExpenditureFreeBudget: totalExpenditureFreeBudget
           };
 
           dispatch(setInitialState(payload));
@@ -88,8 +94,7 @@ export const onStoreSpending = payload => {
       .then(response => {
         const payloadSuccess = {
           totalAvailable: payload[2].totalAvailable,
-          totalExpenditure: payload[1],
-          dailyAvailable: payload[2].dailyAvailable
+          totalExpenditure: payload[1]
         };
         if (actualMonth === payload[4]) {
           dispatch(onStoreSpendingSuccess(payloadSuccess));

@@ -6,7 +6,7 @@ import BudgetOutput from "./BudgetOutput/BudgetOutput";
 import BudgetDiagrammOutput from "./BudgetDiagrammOutput/BudgetDiagrammOutput";
 
 const budgetOutputs = props => {
-  const budgetAfterBudgetSubstract = (
+  const budgetAfterBudgetsSubstract = (
     parseFloat(props.monthlyBudget) -
     (parseFloat(props.fuelBudget) + parseFloat(props.supermarketBudget))
   ).toFixed(2);
@@ -17,28 +17,27 @@ const budgetOutputs = props => {
         Monatsbudget gesamt:
       </BudgetOutput>
       <BudgetDiagrammOutput
-        budget={props.monthlyBudget}
-        usedFromBudget={props.totalAvailable}
+        budget={parseFloat(props.monthlyBudget).toFixed(2)}
+        usedFromBudget={parseFloat(props.totalAvailable).toFixed(2)}
         isTotalAvailable={true}
       >
         noch gesamt verfügbar:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
-        budget={budgetAfterBudgetSubstract}
-        usedFromBudget={50}
-        isTotalAvailable={true}
+        budget={budgetAfterBudgetsSubstract}
+        usedFromBudget={props.usedFromBudgetAfterBudgetsSubstract}
       >
         verfügbar nach Abzug Budgets:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
-        budget={props.fuelBudget}
-        usedFromBudget={props.usedFromFuelBudget}
+        budget={parseFloat(props.fuelBudget).toFixed(2)}
+        usedFromBudget={parseFloat(props.usedFromFuelBudget).toFixed(2)}
       >
         Budget Tanken:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
-        budget={props.supermarketBudget}
-        usedFromBudget={props.usedFromSupermarketBudget}
+        budget={parseFloat(props.supermarketBudget).toFixed(2)}
+        usedFromBudget={parseFloat(props.usedFromSupermarketBudget).toFixed(2)}
       >
         Budget Lebensmittel/Drogerie:
       </BudgetDiagrammOutput>

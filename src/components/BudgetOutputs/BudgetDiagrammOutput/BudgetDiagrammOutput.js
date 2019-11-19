@@ -21,8 +21,8 @@ const budgetDiagrammOutput = props => {
       <p>
         <span
           style={{
-            color: props.usedFromBudget > props.budget ? "red" : "black",
-            fontWeight: props.usedFromBudget > props.budget ? "bold" : ""
+            color: width >= 100 ? "red" : "black",
+            fontWeight: width >= 100 ? "bold" : ""
           }}
         >
           {props.usedFromBudget}

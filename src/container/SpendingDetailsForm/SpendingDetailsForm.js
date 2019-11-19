@@ -255,7 +255,6 @@ const mapStateToProps = state => {
     monthlyBudget: state.main.monthlyBudget,
     totalExpenditure: state.main.totalExpenditure,
     totalAvailable: state.main.totalAvailable,
-    dailyAvailable: state.main.dailyAvailable,
     showModal: state.main.showModal,
     idToken: state.auth.idToken,
     userId: state.auth.userId,

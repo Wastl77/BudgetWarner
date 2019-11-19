@@ -6,8 +6,8 @@ const initialState = {
   totalExpenditure: 0,
   totalExpenditureFuel: 0,
   totalExpenditureSupermarket: 0,
+  totalExpenditureFreeBudget: 0,
   totalAvailable: 0,
-  dailyAvailable: 0,
   spendingInputValue: "",
   showModal: false,
   loading: false,
@@ -40,6 +40,9 @@ const reducer = (state = initialState, action) => {
       const totalExpenditureSupermarket = +action.payload.totalExpenditureSupermarket.toFixed(
         2
       );
+      const totalExpenditureFreeBudget = +action.payload.totalExpenditureFreeBudget.toFixed(
+        2
+      );
       const monthlyBudget = (+action.payload.monthlyBudget).toFixed(2);
       const budget = action.payload.budget;
       const available = helper.calculateAvailable(
@@ -53,8 +56,8 @@ const reducer = (state = initialState, action) => {
         totalExpenditure: totalExpenditure,
         totalExpenditureSupermarket: totalExpenditureSupermarket,
         totalExpenditureFuel: totalExpenditureFuel,
+        totalExpenditureFreeBudget: totalExpenditureFreeBudget,
         totalAvailable: available.totalAvailable,
-        dailyAvailable: available.dailyAvailable,
         budget: budget,
         loading: false
       };
@@ -76,7 +79,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         totalAvailable: action.payload.totalAvailable,
         totalExpenditure: action.payload.totalExpenditure,
-        dailyAvailable: action.payload.dailyAvailable,
         spendingInputValue: "",
         error: null
       };
