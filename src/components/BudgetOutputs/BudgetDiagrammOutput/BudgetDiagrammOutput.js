@@ -4,9 +4,15 @@ import styles from "../BudgetOutput/BudgetOutput.module.css";
 
 const budgetDiagrammOutput = props => {
   let width = ((props.usedFromBudget * 100) / props.budget).toFixed(2);
+
+  if (props.isTotalAvailable) {
+    width = (100 - (props.usedFromBudget / props.budget) * 100).toFixed(2);
+  }
+
   if (width >= 100) {
     width = 100;
   }
+
   const budgetWidth = width.toString() + "%";
 
   return (
