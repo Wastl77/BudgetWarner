@@ -50,7 +50,7 @@ class BudgetInputForm extends Component {
             onChange={event => this.inputChangedHandler(event, "fuel")}
           />
           <p className={styles.BudgetInputEuroLabel}>€</p>
-          <label style={{ "margin-top": "10px" }}>Supermarkt/Drogerie</label>
+          <label style={{ marginTop: "10px" }}>Supermarkt/Drogerie</label>
           <input
             type="number"
             value={this.props.budget["supermarket"]}
