@@ -35,7 +35,7 @@ class MainContent extends Component {
           usedFromSupermarketBudget={this.props.totalExpenditureSupermarket}
         />
         <Button btnType="submit" clicked={this.props.toggleModal}>
-          +
+          Ausgabe
         </Button>
       </Aux>
     );
@@ -82,7 +82,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainContent);
+export default connect(mapStateToProps, mapDispatchToProps)(MainContent);
