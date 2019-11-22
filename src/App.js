@@ -10,6 +10,7 @@ import BudgetInputForm from "./container/BudgetInputForm/BudgetInputForm";
 import Auth from "./container/Auth/Auth";
 import Logout from "./container/Auth/Logout/Logout";
 import ExpenseOutput from "./components/ExpenseOutput/ExpenseOutput";
+import SpendingDetailsForm from "./container/SpendingDetailsForm/SpendingDetailsForm";
 
 import * as actions from "./store/actions/index";
 
@@ -32,6 +33,7 @@ class App extends Component {
         <Switch>
           <Route path="/logout" component={Logout} />
           <Route path="/expenseOutput" component={ExpenseOutput} />
+          <Route path="/addExpense" component={SpendingDetailsForm} />
           <Route path="/" exact component={MainContent} />
           <Redirect to="/" />
         </Switch>
@@ -44,6 +46,7 @@ class App extends Component {
           <Route path="/logout" component={Logout} />
           <Route path="/expenseOutput" component={ExpenseOutput} />
           <Route path="/admin" component={BudgetInputForm} />
+          <Route path="/addExpense" component={SpendingDetailsForm} />
           <Route path="/" exact component={MainContent} />
           <Redirect to="/" />
         </Switch>
@@ -71,9 +74,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -73,6 +73,7 @@ class SpendingDetailsForm extends Component {
     ];
 
     this.props.onStoreSpending(payload);
+    this.props.history.push("/");
   };
 
   spendingInputChangedHandler = event => {
@@ -114,10 +115,16 @@ class SpendingDetailsForm extends Component {
     this.props.onErrorConfirmation();
   };
 
+  onCancelButtonClicked = () => {
+    this.props.history.push("/");
+  };
+
   render() {
     const isInvalid =
       parseFloat(this.props.spendingInputValue) <= 0 ||
-      this.props.spendingInputValue === "";
+      this.props.spendingInputValue === "" ||
+      isNaN(this.props.spendingInputValue);
+    console.log(isInvalid);
     let content = (
       <Aux>
         <div>
@@ -223,14 +230,14 @@ class SpendingDetailsForm extends Component {
           ></textarea>
         </div>
 
-        <Button btnType="Cancel" clicked={this.props.toggleModal}>
+        <Button btnType="Cancel" clicked={this.onCancelButtonClicked}>
           Abbrechen
         </Button>
 
         <Button
           btnType="Continue"
           clicked={this.storeSpendingHandler}
-          isInvalid={isInvalid}
+          isDisabled={isInvalid}
         >
           Übernehmen
         </Button>
@@ -268,8 +275,7 @@ const mapDispatchToProps = dispatch => {
     onSpendingInputChanged: payload =>
       dispatch(actions.onSpendingInputChanged(payload)),
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
-    onErrorConfirmation: () => dispatch(actions.confirmError()),
-    toggleModal: () => dispatch(actions.toggleModal())
+    onErrorConfirmation: () => dispatch(actions.confirmError())
   };
 };
 

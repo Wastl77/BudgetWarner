@@ -5,8 +5,6 @@ import { Redirect } from "react-router-dom";
 import Aux from "../../hoc/Aux/Aux";
 import BudgetOutputs from "../../components/BudgetOutputs/BudgetOutputs";
 import Button from "../../components/UI/Button/Button";
-import Modal from "../../components/UI/Modal/Modal";
-import SpendingDetailsForm from "../SpendingDetailsForm/SpendingDetailsForm";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Error from "../../components/UI/Error/Error";
 
@@ -17,12 +15,13 @@ class MainContent extends Component {
     this.props.onErrorConfirmation();
   };
 
+  onButtonClick = () => {
+    this.props.history.push("/addExpense");
+  };
+
   render() {
     let content = (
       <Aux>
-        <Modal show={this.props.showModal} modalClosed={this.props.toggleModal}>
-          <SpendingDetailsForm />
-        </Modal>
         <BudgetOutputs
           monthlyBudget={this.props.monthlyBudget}
           totalAvailable={this.props.totalAvailable}
@@ -34,7 +33,7 @@ class MainContent extends Component {
           supermarketBudget={this.props.supermarketBudget}
           usedFromSupermarketBudget={this.props.totalExpenditureSupermarket}
         />
-        <Button btnType="submit" clicked={this.props.toggleModal}>
+        <Button btnType="submit" clicked={this.onButtonClick}>
           Ausgabe
         </Button>
       </Aux>
@@ -68,7 +67,6 @@ const mapStateToProps = state => {
     supermarketBudget: state.main.budget.supermarket,
     fuelBudget: state.main.budget.fuel,
     totalAvailable: state.main.totalAvailable,
-    showModal: state.main.showModal,
     isAuthenticated: state.auth.idToken !== null,
     loading: state.main.loading,
     error: state.main.error
@@ -77,8 +75,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onErrorConfirmation: () => dispatch(actions.confirmError()),
-    toggleModal: () => dispatch(actions.toggleModal())
+    onErrorConfirmation: () => dispatch(actions.confirmError())
   };
 };
 
