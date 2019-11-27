@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import Header from "../../components/Header/Header";
-import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
+import Header from '../../components/Header/Header';
+import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
-import styles from "./Layout.module.css";
+import styles from './Layout.module.css';
 
 class Layout extends Component {
   state = {
@@ -39,7 +39,7 @@ class Layout extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.idToken !== null,
-    isAdmin: state.auth.userId === "g60PZDjuZrMKgFskQL6tTFB7szA2"
+    isAdmin: state.auth.userId === 'g60PZDjuZrMKgFskQL6tTFB7szA2'
   };
 };
 

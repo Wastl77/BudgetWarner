@@ -1,6 +1,6 @@
-import axios from "axios";
-import * as actionTypes from "./actionTypes";
-import * as helper from "../../helper/helper";
+import axios from 'axios';
+import * as actionTypes from './actionTypes';
+import * as helper from '../../helper/helper';
 
 export const onSetInitialState = idToken => {
   return dispatch => {
@@ -33,7 +33,7 @@ export const onSetInitialState = idToken => {
           }
 
           allExpenses.forEach(exp => {
-            if (exp.type === "spending") {
+            if (exp.type === 'spending') {
               totalExpenditure =
                 totalExpenditure + parseFloat(exp.expenseValue);
             } else {
@@ -43,14 +43,14 @@ export const onSetInitialState = idToken => {
           });
 
           allExpenses.forEach(exp => {
-            if (exp.category === "supermarkt" || exp.category === "drogerie") {
+            if (exp.category === 'supermarkt' || exp.category === 'drogerie') {
               totalExpenditureSupermarket =
                 totalExpenditureSupermarket + parseFloat(exp.expenseValue);
             }
           });
 
           allExpenses.forEach(exp => {
-            if (exp.category === "tanken") {
+            if (exp.category === 'tanken') {
               totalExpenditureFuel =
                 totalExpenditureFuel + parseFloat(exp.expenseValue);
             }
@@ -76,7 +76,7 @@ export const onSetInitialState = idToken => {
         console.log(error.response);
         let errorMessage = error.message;
         if (error.response !== undefined) {
-          errorMessage = "Bitte später erneut versuchen!";
+          errorMessage = 'Bitte später erneut versuchen!';
         }
         dispatch(fetchDataFail({ error: errorMessage }));
       });
@@ -109,7 +109,7 @@ export const onStoreSpending = payload => {
         console.log(error);
         let errorMessage = error.message;
         if (error.response !== undefined) {
-          errorMessage = "Bitte später erneut versuchen!";
+          errorMessage = 'Bitte später erneut versuchen!';
         }
         dispatch(fetchDataFail({ error: errorMessage }));
         dispatch(toggleModal());

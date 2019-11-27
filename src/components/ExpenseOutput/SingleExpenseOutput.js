@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 
-import styles from "./ExpenseOutput.module.css";
+import styles from './ExpenseOutput.module.css';
 
-import Button from "../UI/Button/Button";
+import Button from '../UI/Button/Button';
 
 const SingleExpenseOutput = props => {
   const [detailsVisible, setDetailsVisible] = useState(false);
@@ -11,10 +11,9 @@ const SingleExpenseOutput = props => {
   return (
     <div
       onClick={() => setDetailsVisible(!detailsVisible)}
-      className={styles.ExpenseOutput}
-    >
+      className={styles.ExpenseOutput}>
       <p>{props.date}</p>
-      <p style={{ color: props.type === "taking" ? "black" : "red" }}>
+      <p style={{ color: props.type === 'taking' ? 'black' : 'red' }}>
         {props.value} €
       </p>
       {detailsVisible ? (
@@ -22,7 +21,7 @@ const SingleExpenseOutput = props => {
           <p>{props.category}</p>
           <p>{props.paymentType}</p>
           {props.note ? <span>{props.note}</span> : null}
-          <Button btnType={"Cancel"} clicked={props.clicked}>
+          <Button btnType={'Cancel'} clicked={props.clicked}>
             Löschen
           </Button>
         </Fragment>

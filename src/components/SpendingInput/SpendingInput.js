@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./SpendingInput.module.css";
+import styles from './SpendingInput.module.css';
 
 const spendingInput = props => {
   const isInvalid = isNaN(parseFloat(props.inputValue));
@@ -8,13 +8,12 @@ const spendingInput = props => {
   return (
     <div className={styles.SpendingInput}>
       <input
-        type="number"
+        type='number'
         onChange={props.inputChanged}
         value={props.inputValue}
         style={{
-          backgroundColor: isInvalid === true ? "rgba(232, 9, 24, 0.6)" : ""
-        }}
-      ></input>
+          backgroundColor: isInvalid === true ? 'rgba(232, 9, 24, 0.6)' : ''
+        }}></input>
       <label>€</label>
     </div>
   );

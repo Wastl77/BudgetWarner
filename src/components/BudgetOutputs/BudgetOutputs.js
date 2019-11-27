@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./BudgetOutputs.module.css";
+import styles from './BudgetOutputs.module.css';
 
-import BudgetOutput from "./BudgetOutput/BudgetOutput";
-import BudgetDiagrammOutput from "./BudgetDiagrammOutput/BudgetDiagrammOutput";
+import BudgetOutput from './BudgetOutput/BudgetOutput';
+import BudgetDiagrammOutput from './BudgetDiagrammOutput/BudgetDiagrammOutput';
 
 const budgetOutputs = props => {
   const budgetAfterBudgetsSubstract = (
@@ -19,26 +19,22 @@ const budgetOutputs = props => {
       <BudgetDiagrammOutput
         budget={parseFloat(props.monthlyBudget).toFixed(2)}
         usedFromBudget={parseFloat(props.totalAvailable).toFixed(2)}
-        isTotalAvailable={true}
-      >
+        isTotalAvailable={true}>
         noch gesamt verfügbar:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
         budget={budgetAfterBudgetsSubstract}
-        usedFromBudget={props.usedFromBudgetAfterBudgetsSubstract}
-      >
+        usedFromBudget={props.usedFromBudgetAfterBudgetsSubstract}>
         verfügbar nach Abzug Budgets:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
         budget={parseFloat(props.fuelBudget).toFixed(2)}
-        usedFromBudget={parseFloat(props.usedFromFuelBudget).toFixed(2)}
-      >
+        usedFromBudget={parseFloat(props.usedFromFuelBudget).toFixed(2)}>
         Budget Tanken:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
         budget={parseFloat(props.supermarketBudget).toFixed(2)}
-        usedFromBudget={parseFloat(props.usedFromSupermarketBudget).toFixed(2)}
-      >
+        usedFromBudget={parseFloat(props.usedFromSupermarketBudget).toFixed(2)}>
         Budget Lebensmittel/Drogerie:
       </BudgetDiagrammOutput>
     </div>

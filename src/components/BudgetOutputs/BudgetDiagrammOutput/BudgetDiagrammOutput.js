@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styles from "../BudgetOutput/BudgetOutput.module.css";
+import styles from '../BudgetOutput/BudgetOutput.module.css';
 
 const budgetDiagrammOutput = props => {
   let width = ((props.usedFromBudget * 100) / props.budget).toFixed(2);
@@ -13,7 +13,7 @@ const budgetDiagrammOutput = props => {
     width = 100;
   }
 
-  const budgetWidth = width.toString() + "%";
+  const budgetWidth = width.toString() + '%';
 
   return (
     <div className={styles.BudgetOutput}>
@@ -21,12 +21,11 @@ const budgetDiagrammOutput = props => {
       <p>
         <span
           style={{
-            color: width >= 100 ? "red" : "black",
-            fontWeight: width >= 100 ? "bold" : ""
-          }}
-        >
+            color: width >= 100 ? 'red' : 'black',
+            fontWeight: width >= 100 ? 'bold' : ''
+          }}>
           {props.usedFromBudget}
-        </span>{" "}
+        </span>{' '}
         € / {props.budget} €
       </p>
       <div className={styles.BudgetBox}>

@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Aux from "../../hoc/Aux/Aux";
-import Button from "../../components/UI/Button/Button";
-import styles from "./index.module.css";
-import Radio from "../../components/UI/Radio/Radio";
-import Error from "../../components/UI/Error/Error";
-import SpendingInput from "../../components/SpendingInput/SpendingInput";
+import Aux from '../../hoc/Aux/Aux';
+import Button from '../../components/UI/Button/Button';
+import styles from './index.module.css';
+import Radio from '../../components/UI/Radio/Radio';
+import Error from '../../components/UI/Error/Error';
+import SpendingInput from '../../components/SpendingInput/SpendingInput';
 
-import * as helper from "../../helper/helper";
-import * as actions from "../../store/actions/index";
+import * as helper from '../../helper/helper';
+import * as actions from '../../store/actions/index';
 
 class SpendingDetailsForm extends Component {
   state = {
-    selectedCategory: "keine",
-    selectedPaymentType: "Bar",
-    type: "spending",
-    selectedDate: new Date().toLocaleDateString("en-CA"),
-    note: ""
+    selectedCategory: 'keine',
+    selectedPaymentType: 'Bar',
+    type: 'spending',
+    selectedDate: new Date().toLocaleDateString('en-CA'),
+    note: ''
   };
 
   storeSpendingHandler = () => {
@@ -25,17 +25,17 @@ class SpendingDetailsForm extends Component {
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpenseISO = new Date(this.state.selectedDate);
-    let dateOfExpense = new Intl.DateTimeFormat("de-DE").format(
+    let dateOfExpense = new Intl.DateTimeFormat('de-DE').format(
       new Date(this.state.selectedDate)
     );
-    let monthOfExpense = new Intl.DateTimeFormat("de-DE", {
-      month: "long"
+    let monthOfExpense = new Intl.DateTimeFormat('de-DE', {
+      month: 'long'
     }).format(new Date(this.state.selectedDate));
     monthOfExpense =
       monthOfExpense.charAt(0).toLowerCase() + monthOfExpense.slice(1);
     let userId = this.props.userId;
     let newTotalExpenditure;
-    if (this.state.type === "spending") {
+    if (this.state.type === 'spending') {
       newTotalExpenditure =
         parseFloat(this.props.totalExpenditure) +
         parseFloat(expense).toFixed(2);
@@ -73,7 +73,7 @@ class SpendingDetailsForm extends Component {
     ];
 
     this.props.onStoreSpending(payload);
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
   spendingInputChangedHandler = event => {
@@ -116,13 +116,13 @@ class SpendingDetailsForm extends Component {
   };
 
   onCancelButtonClicked = () => {
-    this.props.history.push("/");
+    this.props.history.push('/');
   };
 
   render() {
     const isInvalid =
       parseFloat(this.props.spendingInputValue) <= 0 ||
-      this.props.spendingInputValue === "" ||
+      this.props.spendingInputValue === '' ||
       isNaN(this.props.spendingInputValue);
     console.log(isInvalid);
     let content = (
@@ -138,33 +138,33 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Kategorie</h2>
 
           <Radio
-            label="Keine"
-            value="keine"
-            name="category"
+            label='Keine'
+            value='keine'
+            name='category'
             currentlySelected={this.state.selectedCategory}
             onChange={this.handleCategoryChange}
           />
 
           <Radio
-            label="Supermarkt"
-            value="supermarkt"
-            name="category"
+            label='Supermarkt'
+            value='supermarkt'
+            name='category'
             currentlySelected={this.state.selectedCategory}
             onChange={this.handleCategoryChange}
           />
 
           <Radio
-            label="Drogerie"
-            value="drogerie"
-            name="category"
+            label='Drogerie'
+            value='drogerie'
+            name='category'
             currentlySelected={this.state.selectedCategory}
             onChange={this.handleCategoryChange}
           />
 
           <Radio
-            label="Tanken"
-            value="tanken"
-            name="category"
+            label='Tanken'
+            value='tanken'
+            name='category'
             currentlySelected={this.state.selectedCategory}
             onChange={this.handleCategoryChange}
           />
@@ -174,16 +174,16 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Zahlungsart</h2>
 
           <Radio
-            label="Bar"
-            value="Bar"
-            name="paymentType"
+            label='Bar'
+            value='Bar'
+            name='paymentType'
             currentlySelected={this.state.selectedPaymentType}
             onChange={this.handlePaymentTypeChange}
           />
           <Radio
-            label="EC-Karte"
-            value="EC-Karte"
-            name="paymentType"
+            label='EC-Karte'
+            value='EC-Karte'
+            name='paymentType'
             currentlySelected={this.state.selectedPaymentType}
             onChange={this.handlePaymentTypeChange}
           />
@@ -193,16 +193,16 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Typ</h2>
 
           <Radio
-            label="Ausgabe"
-            value="spending"
-            name="type"
+            label='Ausgabe'
+            value='spending'
+            name='type'
             currentlySelected={this.state.type}
             onChange={this.handleTypeChange}
           />
           <Radio
-            label="Einnahme"
-            value="taking"
-            name="type"
+            label='Einnahme'
+            value='taking'
+            name='type'
             currentlySelected={this.state.type}
             onChange={this.handleTypeChange}
           />
@@ -212,7 +212,7 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Datum der Ausgabe</h2>
 
           <input
-            type="date"
+            type='date'
             value={this.state.selectedDate}
             onChange={this.handleDateChange}
             className={styles.input}
@@ -223,22 +223,20 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Notiz</h2>
 
           <textarea
-            style={{ width: "80%" }}
+            style={{ width: '80%' }}
             value={this.state.note}
             onChange={this.handleNoteChange}
-            className={styles.input}
-          ></textarea>
+            className={styles.input}></textarea>
         </div>
 
-        <Button btnType="Cancel" clicked={this.onCancelButtonClicked}>
+        <Button btnType='Cancel' clicked={this.onCancelButtonClicked}>
           Abbrechen
         </Button>
 
         <Button
-          btnType="Continue"
+          btnType='Continue'
           clicked={this.storeSpendingHandler}
-          isDisabled={isInvalid}
-        >
+          isDisabled={isInvalid}>
           Übernehmen
         </Button>
       </Aux>

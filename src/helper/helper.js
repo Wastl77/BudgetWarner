@@ -10,7 +10,7 @@ export const calculateAvailable = (monthlyAvailable, totalExpense) => {
 
 export const getActualMonthString = () => {
   let date = new Date();
-  let monthString = new Intl.DateTimeFormat("de-DE", { month: "long" }).format(
+  let monthString = new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(
     date
   );
   return monthString.charAt(0).toLowerCase() + monthString.slice(1);

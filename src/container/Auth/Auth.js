@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Button from "../../components/UI/Button/Button";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import Error from "../../components/UI/Error/Error";
+import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Error from '../../components/UI/Error/Error';
 
-import styles from "./Auth.module.css";
-import * as actions from "../../store/actions/index";
+import styles from './Auth.module.css';
+import * as actions from '../../store/actions/index';
 
 class Login extends Component {
   state = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   };
 
   submitHandler = event => {
@@ -36,18 +36,18 @@ class Login extends Component {
     let form = (
       <form onSubmit={this.submitHandler} className={styles.LoginInput}>
         <input
-          type="email"
+          type='email'
           value={this.state.email}
-          placeholder="Email"
-          onChange={event => this.onChangedHandler(event, "email")}
+          placeholder='Email'
+          onChange={event => this.onChangedHandler(event, 'email')}
         />
         <input
-          type="password"
+          type='password'
           value={this.state.password}
-          placeholder="Passwort"
-          onChange={event => this.onChangedHandler(event, "password")}
+          placeholder='Passwort'
+          onChange={event => this.onChangedHandler(event, 'password')}
         />
-        <Button btnType="Continue">Login</Button>
+        <Button btnType='Continue'>Login</Button>
       </form>
     );
 
@@ -82,7 +82,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -7,5 +7,5 @@ export {
   onStoreSpending,
   confirmError,
   onStoreBudget
-} from "./mainContent";
-export { onLogin, logout, authCheckState, confirmAuthError } from "./auth";
+} from './mainContent';
+export { onLogin, logout, authCheckState, confirmAuthError } from './auth';

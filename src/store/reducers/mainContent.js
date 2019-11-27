@@ -1,5 +1,5 @@
-import * as helper from "../../helper/helper";
-import * as actionTypes from "../actions/actionTypes";
+import * as helper from '../../helper/helper';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   monthlyBudget: 0,
@@ -8,7 +8,7 @@ const initialState = {
   totalExpenditureSupermarket: 0,
   totalExpenditureFreeBudget: 0,
   totalAvailable: 0,
-  spendingInputValue: "",
+  spendingInputValue: '',
   showModal: false,
   loading: false,
   error: null,
@@ -79,7 +79,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         totalAvailable: action.payload.totalAvailable,
         totalExpenditure: action.payload.totalExpenditure,
-        spendingInputValue: "",
+        spendingInputValue: '',
         error: null
       };
     case actionTypes.TOGGLE_MODAL:
@@ -91,7 +91,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: !state.loading,
-        spendingInputValue: ""
+        spendingInputValue: ''
       };
     case actionTypes.ON_BUDGET_INPUT_CHANGED: {
       return {
@@ -112,7 +112,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        spendingInputValue: ""
+        spendingInputValue: ''
       };
     default:
       return state;

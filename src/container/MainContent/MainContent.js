@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import Aux from "../../hoc/Aux/Aux";
-import BudgetOutputs from "../../components/BudgetOutputs/BudgetOutputs";
-import Button from "../../components/UI/Button/Button";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import Error from "../../components/UI/Error/Error";
+import Aux from '../../hoc/Aux/Aux';
+import BudgetOutputs from '../../components/BudgetOutputs/BudgetOutputs';
+import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Error from '../../components/UI/Error/Error';
 
-import * as actions from "../../store/actions/index";
+import * as actions from '../../store/actions/index';
 
 class MainContent extends Component {
   onErrorConfirmed = () => {
@@ -16,7 +16,7 @@ class MainContent extends Component {
   };
 
   onButtonClick = () => {
-    this.props.history.push("/addExpense");
+    this.props.history.push('/addExpense');
   };
 
   render() {
@@ -33,7 +33,7 @@ class MainContent extends Component {
           supermarketBudget={this.props.supermarketBudget}
           usedFromSupermarketBudget={this.props.totalExpenditureSupermarket}
         />
-        <Button btnType="submit" clicked={this.onButtonClick}>
+        <Button btnType='submit' clicked={this.onButtonClick}>
           Ausgabe
         </Button>
       </Aux>
@@ -50,7 +50,7 @@ class MainContent extends Component {
       );
     }
     if (!this.props.isAuthenticated) {
-      content = <Redirect to="auth" />;
+      content = <Redirect to='auth' />;
     }
 
     return content;

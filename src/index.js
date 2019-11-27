@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import thunk from "redux-thunk";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import thunk from 'redux-thunk';
 
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import mainContentReducer from "../src/store/reducers/mainContent";
-import authReducer from "../src/store/reducers/auth";
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import mainContentReducer from '../src/store/reducers/mainContent';
+import authReducer from '../src/store/reducers/auth';
 
-import axios from "axios";
+import axios from 'axios';
 
 const rootReducer = combineReducers({
   main: mainContentReducer,
@@ -25,7 +25,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
-axios.defaults.baseURL = "https://budget-warner.firebaseio.com/";
+axios.defaults.baseURL = 'https://budget-warner.firebaseio.com/';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -33,7 +33,7 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

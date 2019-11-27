@@ -1,14 +1,14 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
+import React, { Fragment, useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
-import SingleExpenseOutput from "./SingleExpenseOutput";
-import Button from "../UI/Button/Button";
+import SingleExpenseOutput from './SingleExpenseOutput';
+import Button from '../UI/Button/Button';
 
-import months from "../../assets/data/months";
-import * as helper from "../../helper/helper";
-import styles from "./ExpenseOutput.module.css";
-import * as actions from "../../store/actions/index";
+import months from '../../assets/data/months';
+import * as helper from '../../helper/helper';
+import styles from './ExpenseOutput.module.css';
+import * as actions from '../../store/actions/index';
 
 const ExpenseOutput = props => {
   const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
@@ -50,7 +50,7 @@ const ExpenseOutput = props => {
       .delete(`/singleExpenses/${id}.json?auth=${props.idToken}`)
       .then(res => {
         props.onSetInitialState(props.idToken);
-        props.history.push("/");
+        props.history.push('/');
       });
   };
 
@@ -98,15 +98,14 @@ const ExpenseOutput = props => {
   return (
     <Fragment>
       <div className={styles.SelectField}>
-        <label htmlFor="monthSelect" className={styles.Label}>
-          Monat wählen:{" "}
+        <label htmlFor='monthSelect' className={styles.Label}>
+          Monat wählen:{' '}
         </label>
         <select
-          id="monthSelect"
+          id='monthSelect'
           defaultValue={selectValue}
           onChange={onMonthSelectChange}
-          className={styles.Select}
-        >
+          className={styles.Select}>
           {months.map(month => (
             <option value={month} key={month}>
               {month}
@@ -137,7 +136,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExpenseOutput);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseOutput);

@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import DrawerToggle from "../Navigation/SideDrawer/DrawerToggle/DrawerToggle";
+import DrawerToggle from '../Navigation/SideDrawer/DrawerToggle/DrawerToggle';
 
-import styles from "./Header.module.css";
+import styles from './Header.module.css';
 
 const header = props => {
   return (

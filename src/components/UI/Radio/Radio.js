@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
-import styles from "./Radio.module.css";
+import styles from './Radio.module.css';
 
 const Radio = ({ name, value, label, onChange, currentlySelected }) => {
   return (
     <Fragment>
       <input
-        type="radio"
+        type='radio'
         name={name}
         id={`${name}:${value}`}
         value={value}

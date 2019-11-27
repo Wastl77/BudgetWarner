@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Button from "../../components/UI/Button/Button";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
-import styles from "./BudgetInputForm.module.css";
-import * as actions from "../../store/actions/index";
-import months from "../../assets/data/months";
+import styles from './BudgetInputForm.module.css';
+import * as actions from '../../store/actions/index';
+import months from '../../assets/data/months';
 
 class BudgetInputForm extends Component {
   onStoreBudgetHandler = event => {
@@ -26,18 +26,17 @@ class BudgetInputForm extends Component {
     let form = (
       <form onSubmit={this.onStoreBudgetHandler}>
         {months.map(inputElement => (
-          <div key={inputElement + "_div"} className={styles.BudgetInput}>
-            <label key={inputElement + "_label"}>{inputElement}</label>
+          <div key={inputElement + '_div'} className={styles.BudgetInput}>
+            <label key={inputElement + '_label'}>{inputElement}</label>
             <input
               key={inputElement}
-              type="number"
+              type='number'
               value={this.props.budget[inputElement]}
               onChange={event => this.inputChangedHandler(event, inputElement)}
             />
             <p
-              key={inputElement.id + "_euroLabel"}
-              className={styles.BudgetInputEuroLabel}
-            >
+              key={inputElement.id + '_euroLabel'}
+              className={styles.BudgetInputEuroLabel}>
               €
             </p>
           </div>
@@ -45,20 +44,20 @@ class BudgetInputForm extends Component {
         <div className={styles.BudgetInput}>
           <label>Tanken</label>
           <input
-            type="number"
-            value={this.props.budget["fuel"]}
-            onChange={event => this.inputChangedHandler(event, "fuel")}
+            type='number'
+            value={this.props.budget['fuel']}
+            onChange={event => this.inputChangedHandler(event, 'fuel')}
           />
           <p className={styles.BudgetInputEuroLabel}>€</p>
-          <label style={{ marginTop: "10px" }}>Supermarkt/Drogerie</label>
+          <label style={{ marginTop: '10px' }}>Supermarkt/Drogerie</label>
           <input
-            type="number"
-            value={this.props.budget["supermarket"]}
-            onChange={event => this.inputChangedHandler(event, "supermarket")}
+            type='number'
+            value={this.props.budget['supermarket']}
+            onChange={event => this.inputChangedHandler(event, 'supermarket')}
           />
           <p className={styles.BudgetInputEuroLabel}>€</p>
         </div>
-        <Button btnType="Continue">Übernehmen</Button>
+        <Button btnType='Continue'>Übernehmen</Button>
       </form>
     );
 
@@ -85,7 +84,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BudgetInputForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetInputForm);

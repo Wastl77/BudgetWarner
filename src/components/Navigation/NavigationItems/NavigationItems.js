@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./NavigationItems.module.css";
-import NavigationItem from "./NavigationItem/NavigationItem";
+import styles from './NavigationItems.module.css';
+import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = props => (
   <ul className={styles.NavigationItems}>
-    <NavigationItem link="/" exact>
+    <NavigationItem link='/' exact>
       Startseite
     </NavigationItem>
     {props.isAuthenticated ? (
-      <NavigationItem link="/expenseOutput">Einzelausgaben</NavigationItem>
+      <NavigationItem link='/expenseOutput'>Einzelausgaben</NavigationItem>
     ) : null}
     {props.isAdmin ? (
-      <NavigationItem link="/admin">Admin</NavigationItem>
+      <NavigationItem link='/admin'>Admin</NavigationItem>
     ) : null}
     {props.isAuthenticated ? (
-      <NavigationItem link="/logout">Logout</NavigationItem>
+      <NavigationItem link='/logout'>Logout</NavigationItem>
     ) : (
-      <NavigationItem link="/auth">Login</NavigationItem>
+      <NavigationItem link='/auth'>Login</NavigationItem>
     )}
   </ul>
 );
