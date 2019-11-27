@@ -21,8 +21,11 @@ const SingleExpenseOutput = props => {
           <p>{props.category}</p>
           <p>{props.paymentType}</p>
           {props.note ? <span>{props.note}</span> : null}
-          <Button btnType={'Cancel'} clicked={props.clicked}>
+          <Button btnType={'Cancel'} clicked={props.clickedDelete}>
             Löschen
+          </Button>
+          <Button btnType={'Cancel'} clicked={props.clickedEdit}>
+            Bearbeiten
           </Button>
         </Fragment>
       ) : null}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Aux from '../../hoc/Aux/Aux';
 import Button from '../../components/UI/Button/Button';
@@ -124,7 +125,6 @@ class SpendingDetailsForm extends Component {
       parseFloat(this.props.spendingInputValue) <= 0 ||
       this.props.spendingInputValue === '' ||
       isNaN(this.props.spendingInputValue);
-    console.log(isInvalid);
     let content = (
       <Aux>
         <div>
@@ -277,7 +277,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SpendingDetailsForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SpendingDetailsForm)
+);

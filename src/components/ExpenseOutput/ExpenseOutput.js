@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import SingleExpenseOutput from './SingleExpenseOutput';
 import Button from '../UI/Button/Button';
+import SpendingDetailsForm from '../../container/SpendingDetailsForm/SpendingDetailsForm';
 
 import months from '../../assets/data/months';
 import * as helper from '../../helper/helper';
@@ -14,6 +15,7 @@ const ExpenseOutput = props => {
   const [selectValue, setSelectValue] = useState(helper.getActualMonthString());
   const [expenses, setExpenses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     const fetchExpenses = () => {
@@ -54,6 +56,11 @@ const ExpenseOutput = props => {
       });
   };
 
+  const onEditSpending = id => {
+    setIsEditMode(true);
+    // Find Expense by ID in expense array, extract the value etc, inputValue in spoendinginout noch zu local state machen
+  };
+
   const expensesPerPage = 20;
   const indexOfLastExpense = currentPage * expensesPerPage;
   const indexOfFirstExpense = indexOfLastExpense - expensesPerPage;
@@ -87,7 +94,10 @@ const ExpenseOutput = props => {
           id={exp.id}
           type={exp.type}
           key={exp.id}
-          clicked={() => onDeleteSpending(exp.id)}
+          clickedDelete={() => onDeleteSpending(exp.id)}
+          clickedEdit={() => {
+            onEditSpending(exp.id);
+          }}
         />
       );
     });
@@ -95,33 +105,37 @@ const ExpenseOutput = props => {
     output = <p>Keine Ausgaben vorhanden!</p>;
   }
 
-  return (
-    <Fragment>
-      <div className={styles.SelectField}>
-        <label htmlFor='monthSelect' className={styles.Label}>
-          Monat wählen:{' '}
-        </label>
-        <select
-          id='monthSelect'
-          defaultValue={selectValue}
-          onChange={onMonthSelectChange}
-          className={styles.Select}>
-          {months.map(month => (
-            <option value={month} key={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-      </div>
-      {output}
-      <Button clicked={pageDown} isDisabled={currentPage <= 1}>
-        &#x2190;
-      </Button>
-      <Button clicked={pageUp} isDisabled={currentPage >= lastPage}>
-        &#x2192;
-      </Button>
-    </Fragment>
-  );
+  if (!isEditMode) {
+    return (
+      <Fragment>
+        <div className={styles.SelectField}>
+          <label htmlFor='monthSelect' className={styles.Label}>
+            Monat wählen:{' '}
+          </label>
+          <select
+            id='monthSelect'
+            defaultValue={selectValue}
+            onChange={onMonthSelectChange}
+            className={styles.Select}>
+            {months.map(month => (
+              <option value={month} key={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
+        {output}
+        <Button clicked={pageDown} isDisabled={currentPage <= 1}>
+          &#x2190;
+        </Button>
+        <Button clicked={pageUp} isDisabled={currentPage >= lastPage}>
+          &#x2192;
+        </Button>
+      </Fragment>
+    );
+  } else {
+    return <SpendingDetailsForm />;
+  }
 };
 
 const mapStateToProps = state => {
