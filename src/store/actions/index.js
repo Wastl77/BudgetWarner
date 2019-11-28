@@ -3,7 +3,6 @@ export {
   toggleModal,
   toggleLoading,
   onBudgetInputChanged,
-  onSpendingInputChanged,
   onStoreSpending,
   confirmError,
   onStoreBudget

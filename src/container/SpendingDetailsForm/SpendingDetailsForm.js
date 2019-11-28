@@ -18,11 +18,12 @@ class SpendingDetailsForm extends Component {
     selectedPaymentType: 'Bar',
     type: 'spending',
     selectedDate: new Date().toLocaleDateString('en-CA'),
-    note: ''
+    note: '',
+    spendingInput: ''
   };
 
   storeSpendingHandler = () => {
-    let expense = parseFloat(this.props.spendingInputValue).toFixed(2);
+    let expense = parseFloat(this.state.spendingInput).toFixed(2);
     let category = this.state.selectedCategory;
     let paymentType = this.state.selectedPaymentType;
     let dateOfExpenseISO = new Date(this.state.selectedDate);
@@ -79,7 +80,10 @@ class SpendingDetailsForm extends Component {
 
   spendingInputChangedHandler = event => {
     const { value } = event.target;
-    this.props.onSpendingInputChanged({ value: value });
+    // this.props.onSpendingInputChanged({ value: value });
+    this.setState({
+      spendingInput: value
+    });
   };
 
   handleCategoryChange = event => {
@@ -122,9 +126,9 @@ class SpendingDetailsForm extends Component {
 
   render() {
     const isInvalid =
-      parseFloat(this.props.spendingInputValue) <= 0 ||
-      this.props.spendingInputValue === '' ||
-      isNaN(this.props.spendingInputValue);
+      parseFloat(this.state.spendingInput) <= 0 ||
+      this.state.spendingInput === '' ||
+      isNaN(this.state.spendingInput);
     let content = (
       <Aux>
         <div>
@@ -132,7 +136,7 @@ class SpendingDetailsForm extends Component {
 
           <SpendingInput
             inputChanged={this.spendingInputChangedHandler}
-            inputValue={this.props.spendingInputValue}
+            inputValue={this.state.spendingInput}
           />
 
           <h2 className={styles.header}>Kategorie</h2>
@@ -263,15 +267,15 @@ const mapStateToProps = state => {
     showModal: state.main.showModal,
     idToken: state.auth.idToken,
     userId: state.auth.userId,
-    error: state.main.error,
-    spendingInputValue: state.main.spendingInputValue
+    error: state.main.error
+    // spendingInputValue: state.main.spendingInputValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSpendingInputChanged: payload =>
-      dispatch(actions.onSpendingInputChanged(payload)),
+    // onSpendingInputChanged: payload =>
+    //   dispatch(actions.onSpendingInputChanged(payload)),
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
     onErrorConfirmation: () => dispatch(actions.confirmError())
   };

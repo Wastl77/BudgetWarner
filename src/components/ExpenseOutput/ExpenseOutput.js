@@ -58,7 +58,8 @@ const ExpenseOutput = props => {
 
   const onEditSpending = id => {
     setIsEditMode(true);
-    // Find Expense by ID in expense array, extract the value etc, inputValue in spoendinginout noch zu local state machen
+    console.log(expenses);
+    // Find Expense by ID in expense array, extract the value etc, memoize useeffect
   };
 
   const expensesPerPage = 20;

@@ -178,13 +178,6 @@ export const onBudgetInputChanged = payload => {
   };
 };
 
-export const onSpendingInputChanged = payload => {
-  return {
-    type: actionTypes.ON_SPENDING_INPUT_CHANGED,
-    payload: payload
-  };
-};
-
 export const confirmError = () => {
   return {
     type: actionTypes.CONFIRM_ERROR
