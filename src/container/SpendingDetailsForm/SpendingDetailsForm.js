@@ -14,12 +14,24 @@ import * as actions from '../../store/actions/index';
 
 class SpendingDetailsForm extends Component {
   state = {
-    selectedCategory: 'keine',
-    selectedPaymentType: 'Bar',
-    type: 'spending',
-    selectedDate: new Date().toLocaleDateString('en-CA'),
-    note: '',
-    spendingInput: ''
+    selectedCategory: this.props.editExpenseData
+      ? this.props.editExpenseData.category
+      : 'keine',
+    selectedPaymentType: this.props.editExpenseData
+      ? this.props.editExpenseData.paymentType
+      : 'Bar',
+    type: this.props.editExpenseData
+      ? this.props.editExpenseData.type
+      : 'spending',
+    selectedDate: this.props.editExpenseData
+      ? new Date(
+          this.props.editExpenseData.dateOfExpenseISO
+        ).toLocaleDateString('en-ca')
+      : new Date().toLocaleDateString('en-CA'),
+    note: this.props.editExpenseData ? this.props.editExpenseData.note : '',
+    spendingInput: this.props.editExpenseData
+      ? this.props.editExpenseData.expenseValue
+      : ''
   };
 
   storeSpendingHandler = () => {

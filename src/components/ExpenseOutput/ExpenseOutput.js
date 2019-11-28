@@ -16,6 +16,7 @@ const ExpenseOutput = props => {
   const [expenses, setExpenses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [editExpenseData, setEditExpenseData] = useState(null);
 
   useEffect(() => {
     const fetchExpenses = () => {
@@ -48,6 +49,7 @@ const ExpenseOutput = props => {
   };
 
   const onDeleteSpending = id => {
+    // console.log(expenses.findIndex(el => el.id === id));
     axios
       .delete(`/singleExpenses/${id}.json?auth=${props.idToken}`)
       .then(res => {
@@ -58,7 +60,8 @@ const ExpenseOutput = props => {
 
   const onEditSpending = id => {
     setIsEditMode(true);
-    console.log(expenses);
+    const index = expenses.findIndex(el => el.id === id);
+    setEditExpenseData(expenses[index]);
     // Find Expense by ID in expense array, extract the value etc, memoize useeffect
   };
 
@@ -135,7 +138,12 @@ const ExpenseOutput = props => {
       </Fragment>
     );
   } else {
-    return <SpendingDetailsForm />;
+    return (
+      <SpendingDetailsForm
+        isEditMode={isEditMode}
+        editExpenseData={editExpenseData}
+      />
+    );
   }
 };
 
