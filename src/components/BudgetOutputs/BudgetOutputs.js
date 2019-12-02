@@ -25,7 +25,7 @@ const budgetOutputs = props => {
       <BudgetDiagrammOutput
         budget={budgetAfterBudgetsSubstract}
         usedFromBudget={props.usedFromBudgetAfterBudgetsSubstract}>
-        verfügbar nach Abzug Budgets:
+        freies Budget:
       </BudgetDiagrammOutput>
       <BudgetDiagrammOutput
         budget={parseFloat(props.fuelBudget).toFixed(2)}

@@ -5,6 +5,7 @@ export {
   onBudgetInputChanged,
   onStoreSpending,
   confirmError,
-  onStoreBudget
+  onStoreBudget,
+  fetchDataFail
 } from './mainContent';
 export { onLogin, logout, authCheckState, confirmAuthError } from './auth';

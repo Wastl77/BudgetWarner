@@ -78,7 +78,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         totalAvailable: action.payload.totalAvailable,
         totalExpenditure: action.payload.totalExpenditure,
-        spendingInputValue: '',
         error: null
       };
     case actionTypes.TOGGLE_MODAL:
@@ -89,8 +88,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.TOGGLE_LOADING:
       return {
         ...state,
-        loading: !state.loading,
-        spendingInputValue: ''
+        loading: !state.loading
       };
     case actionTypes.ON_BUDGET_INPUT_CHANGED: {
       return {
@@ -101,17 +99,10 @@ const reducer = (state = initialState, action) => {
         }
       };
     }
-    // case actionTypes.ON_SPENDING_INPUT_CHANGED: {
-    //   return {
-    //     ...state,
-    //     spendingInputValue: action.payload.value
-    //   };
-    // }
     case actionTypes.CONFIRM_ERROR:
       return {
         ...state,
-        error: null,
-        spendingInputValue: ''
+        error: null
       };
     default:
       return state;

@@ -49,7 +49,6 @@ const ExpenseOutput = props => {
   };
 
   const onDeleteSpending = id => {
-    // console.log(expenses.findIndex(el => el.id === id));
     axios
       .delete(`/singleExpenses/${id}.json?auth=${props.idToken}`)
       .then(res => {
@@ -62,7 +61,7 @@ const ExpenseOutput = props => {
     setIsEditMode(true);
     const index = expenses.findIndex(el => el.id === id);
     setEditExpenseData(expenses[index]);
-    // Find Expense by ID in expense array, extract the value etc, memoize useeffect
+    // Find Expense by ID in expense array, extract the value etc, memoize useeffect, create action for editing the expense
   };
 
   const expensesPerPage = 20;

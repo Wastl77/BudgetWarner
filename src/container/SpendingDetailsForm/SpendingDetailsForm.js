@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 import Aux from '../../hoc/Aux/Aux';
 import Button from '../../components/UI/Button/Button';
@@ -86,13 +87,27 @@ class SpendingDetailsForm extends Component {
       monthOfExpense
     ];
 
-    this.props.onStoreSpending(payload);
-    this.props.history.push('/');
+    if (!this.props.isEditMode) {
+      this.props.onStoreSpending(payload);
+      this.props.history.push('/');
+    } else {
+      axios
+        .patch(
+          `/singleExpenses/${this.props.editExpenseData.id}.json?auth=${this.props.idToken}`,
+          storageExpenseData
+        )
+        .then(res => {
+          this.props.onSetInitialState(this.props.idToken);
+          this.props.history.push('/');
+        })
+        .catch(err => {
+          this.props.fetchDataFail({ error: err.message });
+        });
+    }
   };
 
   spendingInputChangedHandler = event => {
     const { value } = event.target;
-    // this.props.onSpendingInputChanged({ value: value });
     this.setState({
       spendingInput: value
     });
@@ -262,7 +277,7 @@ class SpendingDetailsForm extends Component {
       content = (
         <Error
           errorMessage={this.props.error}
-          errorConfirmedHandler={this.onErrorConfirmed}
+          errorConfirmHandler={this.onErrorConfirmed}
         />
       );
     }
@@ -280,16 +295,15 @@ const mapStateToProps = state => {
     idToken: state.auth.idToken,
     userId: state.auth.userId,
     error: state.main.error
-    // spendingInputValue: state.main.spendingInputValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    // onSpendingInputChanged: payload =>
-    //   dispatch(actions.onSpendingInputChanged(payload)),
+    onSetInitialState: payload => dispatch(actions.onSetInitialState(payload)),
     onStoreSpending: payload => dispatch(actions.onStoreSpending(payload)),
-    onErrorConfirmation: () => dispatch(actions.confirmError())
+    onErrorConfirmation: () => dispatch(actions.confirmError()),
+    fetchDataFail: payload => dispatch(actions.fetchDataFail(payload))
   };
 };
 
