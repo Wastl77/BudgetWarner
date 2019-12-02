@@ -9,6 +9,7 @@ const spendingInput = props => {
     <div className={styles.SpendingInput}>
       <input
         type='number'
+        name='spendingInput'
         onChange={props.inputChanged}
         value={props.inputValue}
         style={{

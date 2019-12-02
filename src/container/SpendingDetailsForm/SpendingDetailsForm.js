@@ -15,16 +15,16 @@ import * as actions from '../../store/actions/index';
 
 class SpendingDetailsForm extends Component {
   state = {
-    selectedCategory: this.props.editExpenseData
+    category: this.props.editExpenseData
       ? this.props.editExpenseData.category
       : 'keine',
-    selectedPaymentType: this.props.editExpenseData
+    paymentType: this.props.editExpenseData
       ? this.props.editExpenseData.paymentType
       : 'Bar',
     type: this.props.editExpenseData
       ? this.props.editExpenseData.type
       : 'spending',
-    selectedDate: this.props.editExpenseData
+    date: this.props.editExpenseData
       ? new Date(
           this.props.editExpenseData.dateOfExpenseISO
         ).toLocaleDateString('en-ca')
@@ -37,15 +37,15 @@ class SpendingDetailsForm extends Component {
 
   storeSpendingHandler = () => {
     let expense = parseFloat(this.state.spendingInput).toFixed(2);
-    let category = this.state.selectedCategory;
-    let paymentType = this.state.selectedPaymentType;
-    let dateOfExpenseISO = new Date(this.state.selectedDate);
+    let category = this.state.category;
+    let paymentType = this.state.paymentType;
+    let dateOfExpenseISO = new Date(this.state.date);
     let dateOfExpense = new Intl.DateTimeFormat('de-DE').format(
-      new Date(this.state.selectedDate)
+      new Date(this.state.date)
     );
     let monthOfExpense = new Intl.DateTimeFormat('de-DE', {
       month: 'long'
-    }).format(new Date(this.state.selectedDate));
+    }).format(new Date(this.state.date));
     monthOfExpense =
       monthOfExpense.charAt(0).toLowerCase() + monthOfExpense.slice(1);
     let userId = this.props.userId;
@@ -106,40 +106,10 @@ class SpendingDetailsForm extends Component {
     }
   };
 
-  spendingInputChangedHandler = event => {
-    const { value } = event.target;
+  setter = event => {
+    const { value, name } = event.target;
     this.setState({
-      spendingInput: value
-    });
-  };
-
-  handleCategoryChange = event => {
-    this.setState({
-      selectedCategory: event.target.value
-    });
-  };
-
-  handlePaymentTypeChange = event => {
-    this.setState({
-      selectedPaymentType: event.target.value
-    });
-  };
-
-  handleTypeChange = event => {
-    this.setState({
-      type: event.target.value
-    });
-  };
-
-  handleDateChange = event => {
-    this.setState({
-      selectedDate: event.target.value
-    });
-  };
-
-  handleNoteChange = event => {
-    this.setState({
-      note: event.target.value
+      [name]: value
     });
   };
 
@@ -162,7 +132,7 @@ class SpendingDetailsForm extends Component {
           <h2 className={styles.header}>Ausgabe</h2>
 
           <SpendingInput
-            inputChanged={this.spendingInputChangedHandler}
+            inputChanged={this.setter}
             inputValue={this.state.spendingInput}
           />
 
@@ -172,32 +142,32 @@ class SpendingDetailsForm extends Component {
             label='Keine'
             value='keine'
             name='category'
-            currentlySelected={this.state.selectedCategory}
-            onChange={this.handleCategoryChange}
+            currentlySelected={this.state.category}
+            onChange={this.setter}
           />
 
           <Radio
             label='Supermarkt'
             value='supermarkt'
             name='category'
-            currentlySelected={this.state.selectedCategory}
-            onChange={this.handleCategoryChange}
+            currentlySelected={this.state.category}
+            onChange={this.setter}
           />
 
           <Radio
             label='Drogerie'
             value='drogerie'
             name='category'
-            currentlySelected={this.state.selectedCategory}
-            onChange={this.handleCategoryChange}
+            currentlySelected={this.state.category}
+            onChange={this.setter}
           />
 
           <Radio
             label='Tanken'
             value='tanken'
             name='category'
-            currentlySelected={this.state.selectedCategory}
-            onChange={this.handleCategoryChange}
+            currentlySelected={this.state.category}
+            onChange={this.setter}
           />
         </div>
 
@@ -208,15 +178,15 @@ class SpendingDetailsForm extends Component {
             label='Bar'
             value='Bar'
             name='paymentType'
-            currentlySelected={this.state.selectedPaymentType}
-            onChange={this.handlePaymentTypeChange}
+            currentlySelected={this.state.paymentType}
+            onChange={this.setter}
           />
           <Radio
             label='EC-Karte'
             value='EC-Karte'
             name='paymentType'
-            currentlySelected={this.state.selectedPaymentType}
-            onChange={this.handlePaymentTypeChange}
+            currentlySelected={this.state.paymentType}
+            onChange={this.setter}
           />
         </div>
 
@@ -228,14 +198,14 @@ class SpendingDetailsForm extends Component {
             value='spending'
             name='type'
             currentlySelected={this.state.type}
-            onChange={this.handleTypeChange}
+            onChange={this.setter}
           />
           <Radio
             label='Einnahme'
             value='taking'
             name='type'
             currentlySelected={this.state.type}
-            onChange={this.handleTypeChange}
+            onChange={this.setter}
           />
         </div>
 
@@ -244,8 +214,9 @@ class SpendingDetailsForm extends Component {
 
           <input
             type='date'
-            value={this.state.selectedDate}
-            onChange={this.handleDateChange}
+            name='date'
+            value={this.state.date}
+            onChange={this.setter}
             className={styles.input}
           />
         </div>
@@ -256,7 +227,8 @@ class SpendingDetailsForm extends Component {
           <textarea
             style={{ width: '80%' }}
             value={this.state.note}
-            onChange={this.handleNoteChange}
+            name='note'
+            onChange={this.setter}
             className={styles.input}></textarea>
         </div>
 
